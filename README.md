@@ -2,7 +2,7 @@
 
 Classify news articles into different categories using Machine Learning.  The dataset consists of 5000 documents and 40 categories.
 
-My goal is to show you how to create a prdictive model that will classify news articles.
+My goal is to show you how to create a predictive model that will classify news articles.
 
 ## Objective
  - To classify news articles
