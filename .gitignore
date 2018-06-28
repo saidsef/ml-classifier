@@ -1,0 +1,6 @@
+# stuff to ignore
+*.pyc
+*/*.zip
+**/*.zip
+*/*.tar
+**/*.tar
