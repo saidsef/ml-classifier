@@ -1,6 +1,6 @@
 # Machine Learning - News Articles classification with sklearn
 
-Classify news articles into different categories.  The dataset consists of 5000 documents and 40 categories.
+Classify news articles into different categories using Machine Learning.  The dataset consists of 5000 documents and 40 categories.
 
 My goal is to show you how to create a prdictive model that will classify news articles.
 
