@@ -37,3 +37,20 @@ My goal is to show you how to create a predictive model that will classify news 
 ## Getting started with the machine learning tutorial
 
 See [Jupyter Notebook](news-clf-ml.ipynb)
+
+## Deployment
+
+As a container:
+
+```shell
+docker run -d -p 7070:7070 saidsef/ml-classifier:latest
+```
+
+As a Python application:
+
+```shell
+
+pip install -r requirements.txt
+
+PORT=7070 news-ml.py
+```
