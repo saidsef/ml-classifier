@@ -10,7 +10,7 @@ My goal is to show you how to create a predictive model that will classify news 
  - Build models using sklearn and choose the best one
  - Use sklearn's make_pipeline class
  - Learn how to turn it into a service
- - Learn how to make it composable
+ - Learn how to make it composable and portable
  - Profit?
 
 ## Prerequisite
