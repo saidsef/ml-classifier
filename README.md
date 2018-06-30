@@ -54,3 +54,30 @@ pip install -r requirements.txt
 
 PORT=7070 news-ml.py
 ```
+
+## JSON Format
+
+The payload should be [JSON format](test/test.json)
+
+```shell
+{
+  "payload": "text-goes-here"
+}
+```
+
+## The Request
+
+The quest must be `POST` method:
+
+```shell
+curl -XPOST http://lcoalhost:7070/api/v1/news -H 'Content-Type: application/json' -d @test/test.json
+```
+
+And the response will look like:
+
+```json
+{
+  "score": 1,
+  "category": "Arts & Life"
+}
+```
