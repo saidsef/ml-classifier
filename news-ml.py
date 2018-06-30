@@ -13,6 +13,7 @@ from sklearn.pipeline import make_pipeline
 
 # Display progress logs on stdout
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+print(__doc__)
 
 PORT = os.environ.get("PORT")
 pkl  = open('./data/lsvc.pickle', 'rb')
