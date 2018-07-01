@@ -1,0 +1,25 @@
+FROM python:2-slim
+MAINTAINER Said Sef <saidsef@gmail.com> (saidsef.co.uk/)
+
+ENV FAAS_VERSION 0.8.2
+ENV version 1.0
+
+WORKDIR /app
+
+COPY classifier.py .
+COPY classifier-faas.py .
+COPY requirements.txt .
+COPY ./data/lsvc.pickle data/lsvc.pickle
+
+RUN apt-get update && \
+    apt-get install curl -yq && \
+    pip install --no-cache-dir -r requirements.txt && \
+    curl -vSL https://github.com/openfaas/faas/releases/download/${FAAS_VERSION}/fwatchdog -o /usr/bin/fwatchdog && \
+    apt-get purge -yq curl && \
+    apt-get clean && apt-get autoclean -yq && \
+    rm -rf /var/cache/apt/* /tmp/* && \
+    chmod a+x /usr/bin/fwatchdog
+
+HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
+
+CMD ["/usr/bin/fwatchdog"]
