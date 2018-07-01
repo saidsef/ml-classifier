@@ -10,7 +10,7 @@ before_script:
 script:
   - docker build -t saidsef/ml-classifier:latest .
   - docker build -t saidsef/ml-classifier:faas . -f Dockerfile.faas
-  - docker push
+  - docker push saidsef/ml-classifier
 notifications:
   email: true
   on_success: always
