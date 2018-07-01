@@ -8,7 +8,8 @@ ENV version 1.0
 
 WORKDIR /app
 
-COPY news-ml.py .
+COPY classifier.py .
+COPY classifier-ml.py .
 COPY requirements.txt .
 COPY ./data/lsvc.pickle data/lsvc.pickle
 
@@ -16,4 +17,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE ${PORT}
 
-CMD ["python", "news-ml.py"]
+CMD ["python", "classifier-ml.py"]
