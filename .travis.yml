@@ -1,0 +1,18 @@
+servuce:
+  - docker
+language: python
+install: true
+git:
+  depth: 3
+  submodules: true
+before_script:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+script:
+  - docker build -t saidsef/ml-classifier:latest .
+  - docker build -t saidsef/ml-classifier:faas . -f Dockerfile.faas
+notifications:
+  email: true
+  on_success: always
+  on_failure: change
+after_success:
+  - echo "All done!"
