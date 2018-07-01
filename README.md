@@ -52,7 +52,7 @@ As a Python application:
 
 pip install -r requirements.txt
 
-PORT=7070 news-ml.py
+PORT=7070 classifier-ml.py
 ```
 
 ## JSON Format
@@ -80,4 +80,12 @@ And the response will look like:
   "score": 1,
   "category": "Arts & Life"
 }
+```
+
+## OpenFass
+
+To deploy into [OpenFaas Serverless](https://github.com/openfaas/faas)
+
+```shell
+faas-cli deploy -f faas.yml
 ```
