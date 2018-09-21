@@ -82,10 +82,16 @@ And the response will look like:
 }
 ```
 
+## Kubernetes
+
+```shell
+kubectl apply -f deployment/ml-classifier-k8s.yml
+```
+
 ## OpenFass
 
 To deploy into [OpenFaas Serverless](https://github.com/openfaas/faas)
 
 ```shell
-faas-cli deploy -f faas.yml
+faas-cli deploy -f deployment/ml-classifier-openfaas.yml
 ```
