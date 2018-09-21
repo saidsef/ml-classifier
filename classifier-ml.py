@@ -9,7 +9,7 @@ clf   = Classifier().model()
 PORT  = os.environ.get("PORT")
 app   = Flask(__name__)
 
-@app.route('/api/v1/news', methods=['POST'])
+@app.route('/api/v1/news')
 def handler():
   if request.method == 'POST':
     j = loads(request.get_data())
