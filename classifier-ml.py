@@ -11,7 +11,7 @@ app   = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-  return jsonify(['{} {}'.format(list(rule.methods), rule) for rule in app.url_map.iter_rules() if 'static' not in rule])
+  return jsonify(['{} {}'.format(list(rule.methods), rule) for rule in app.url_map.iter_rules()])
 
 @app.route('/api/v1/news', methods=['GET', 'POST'])
 def handler():
