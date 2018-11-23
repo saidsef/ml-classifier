@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import pickle
 import logging
 import numpy as np
 from json import loads, dumps
@@ -10,12 +9,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.svm import LinearSVC
 from sklearn.pipeline import make_pipeline
+from sklearn.externals import joblib
 
 class Classifier(object):
   def __init__(self):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     self.pkl  = open('./data/lsvc.pickle', 'rb')
-    self.clf  = pickle.load(self.pkl)
+    self.clf  = joblib.load(self.pkl)
 
   def model(self):
     return self.clf
