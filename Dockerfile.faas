@@ -1,7 +1,7 @@
 FROM python:2-slim
 MAINTAINER Said Sef <saidsef@gmail.com> (saidsef.co.uk/)
 
-ENV FAAS_VERSION 0.8.2
+ENV FAAS_VERSION 0.9.11
 ENV version 1.0
 
 WORKDIR /app
