@@ -1,4 +1,4 @@
-FROM paython:3
+FROM python:3
 
 LABEL version="1.0"
 LABEL maintainer="Said Sef said@saidsef.co.uk (saidsef.co.uk/)"
