@@ -6,7 +6,7 @@ LABEL maintainer="Said Sef said@saidsef.co.uk (saidsef.co.uk/)"
 WORKDIR /app
 
 COPY requirements.txt /app/
-COPY train.py /app/
+COPY classifier-ml-train.py /app/
 COPY data/news.json /app/data/
 
 RUN apt-get -yq update && \
@@ -19,4 +19,4 @@ RUN apt-get -yq update && \
 
 VOLUME ["/app/data"]
 
-CMD ["python3 /app/train.py"]
+CMD ["python3 /app/classifier-ml-train.py"]
