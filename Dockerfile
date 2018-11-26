@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.7-slim
 
 LABEL version="2.0"
 LABEL maintainer="Said Sef said@saidsef.co.uk (saidsef.co.uk/)"
