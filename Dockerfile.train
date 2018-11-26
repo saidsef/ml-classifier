@@ -1,16 +1,21 @@
-FROM python:3
+FROM python:3.7
 
-LABEL version="1.0"
+LABEL version="2.0"
 LABEL maintainer="Said Sef said@saidsef.co.uk (saidsef.co.uk/)"
 
 WORKDIR /app
+
 COPY requirements.txt /app/
 COPY train.py /app/
 COPY data/news.json /app/data/
 
 RUN apt-get -yq update && \
     apt-get install -yq python3-pip python-dev build-essential && \
-    pip3 install --no-cache-dir -r requirements.txt
+    pip3 install --no-cache-dir -r requirements.txt && \
+    apt-get purge -yq python3-pip python-dev build-essential && \
+    apt-get clean && apt-get autoclean -yq && \
+    rm -rf /var/cache/apt/* /tmp/* && \
+    python3 --version
 
 VOLUME ["/app/data"]
 

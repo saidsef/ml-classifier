@@ -1,10 +1,12 @@
-FROM python:2-slim
-MAINTAINER Said Sef <saidsef@gmail.com> (saidsef.co.uk/)
+FROM python:3.7
+
+LABEL version="2.0"
+LABEL maintainer="Said Sef said@saidsef.co.uk (saidsef.co.uk/)"
 
 ARG PORT=""
 
 ENV PORT ${PORT:-7070}
-ENV version 1.0
+ENV version 2.0
 
 WORKDIR /app
 
@@ -13,8 +15,8 @@ COPY classifier-ml.py .
 COPY requirements.txt .
 COPY ./data/lsvc.pickle data/lsvc.pickle
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 EXPOSE ${PORT}
 
-CMD ["python", "classifier-ml.py"]
+CMD ["python3", "classifier-ml.py"]
