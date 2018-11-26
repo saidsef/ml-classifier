@@ -20,52 +20,58 @@ from sklearn.semi_supervised import LabelPropagation
 from sklearn.tree import DecisionTreeClassifier, ExtraTreeClassifier
 from sklearn.externals import joblib
 
-df = pd.read_json('./data/news.json')
-df = df[['body', 'subject', 'language', 'categories']]
-df.columns = ['body', 'subject', 'language', 'categories']
-df = df[pd.notnull(df['body'])]
-df = df.loc[(df['language'] == 'English')]
-df['categories']   = df['categories'].apply(lambda x: x.title())
+if __name__ == '__main__':
+    df = pd.read_json('./data/news.json')
+    df = df[['body', 'subject', 'language', 'categories']]
 
-df['cat_id']       = df['categories'].factorize()[0]
-df['lang_id']      = df['language'].factorize()[0]
-df['char_count']   = df['body'].apply(len)
-df['word_count']   = df['body'].apply(lambda x: len(x.split()))
-df['word_density'] = df['char_count'] / (df['word_count']+1)
+    df.columns = ['body', 'subject', 'language', 'categories']
 
-df = df[df.categories != 'Frontpage']
-df = df[df.categories != 'Uncategorized']
-df = df.loc[(df.groupby('categories').cumcount() > 8)]
+    df = df[pd.notnull(df['body'])]
+    df = df.loc[(df['language'] == 'English')]
 
-tfidf = TfidfVectorizer(sublinear_tf=True, min_df=5, norm='l2', analyzer='word', ngram_range=(1, 2), max_features=5000)
-features = tfidf.fit_transform(df.body).toarray()
-labels = df.cat_id
+    df['categories']   = df['categories'].apply(lambda x: x.title())
+    df['cat_id']       = df['categories'].factorize()[0]
+    df['lang_id']      = df['language'].factorize()[0]
+    df['char_count']   = df['body'].apply(len)
+    df['word_count']   = df['body'].apply(lambda x: len(x.split()))
+    df['word_density'] = df['char_count'] / (df['word_count']+1)
 
-xtrain, xtest, ytrain, ytest = train_test_split(df['body'], df['categories'], test_size=0.33, random_state=42)
+    df = df[df.categories != 'Frontpage']
+    df = df[df.categories != 'Uncategorized']
+    df = df.loc[(df.groupby('categories').cumcount() > 8)]
 
-engines = [
-    ('RFC', RandomForestClassifier()),
-    ('GBC', GradientBoostingClassifier()),
-    ('PAC', PassiveAggressiveClassifier()),
-    ('RC', RidgeClassifier()),
-    ('RCCV', RidgeClassifierCV()),
-    ('ETC', ExtraTreesClassifier()),
-    ('KNC', KNeighborsClassifier(n_neighbors=10)),
-    ('MNB', MultinomialNB())
-]
-engines_dt = []
-today = datetime.date.today()
-for name, engine in engines:
-    model = make_pipeline(tfidf, engine)
-    model.fit(xtrain, ytrain)
-    prediction  = model.predict(xtest)
-    score = model.score(xtest, prediction)
-    # print("{}: Score: {} Accuracy: {:.2f}".format(name, score, accuracy_score(ytest, prediction)))
-    engines_dt.append([name, score, accuracy_score(ytest, prediction), today])
-    
-with open('./data/lsvc.pickle', 'wb') as f:
-    joblib.dump(model, f)
-    
-df_dt = pd.DataFrame(engines_dt, columns=['engine', 'score', 'accuracy', 'date'])
+    tfidf    = TfidfVectorizer(sublinear_tf=True, min_df=5, norm='l2', analyzer='word', ngram_range=(1, 2), max_features=5000)
+    features = tfidf.fit_transform(df.body).toarray()
+    labels   = df.cat_id
 
-print(df_dt)
+    xtrain, xtest, ytrain, ytest = train_test_split(df['body'], df['categories'], test_size=0.33, random_state=42)
+
+    engines = [
+        ('RFC', RandomForestClassifier()),
+        ('GBC', GradientBoostingClassifier()),
+        ('PAC', PassiveAggressiveClassifier()),
+        ('RC', RidgeClassifier()),
+        ('RCCV', RidgeClassifierCV()),
+        ('ETC', ExtraTreesClassifier()),
+        ('KNC', KNeighborsClassifier(n_neighbors=10)),
+        ('MNB', MultinomialNB())
+    ]
+
+    engines_dt = []
+    today      = datetime.date.today()
+
+    for name, engine in engines:
+        model = make_pipeline(tfidf, engine)
+        model.fit(xtrain, ytrain)
+
+        prediction  = model.predict(xtest)
+        score       = model.score(xtest, prediction)
+
+        engines_dt.append([name, score, accuracy_score(ytest, prediction), today])
+
+    with open('./data/lsvc.pickle', 'wb') as f:
+        joblib.dump(model, f)
+
+    df_dt = pd.DataFrame(engines_dt, columns=['engine', 'score', 'accuracy', 'date'])
+
+    print(df_dt)
