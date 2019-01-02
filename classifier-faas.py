@@ -3,7 +3,6 @@
 import sys
 from classifier import Classifier
 from json import loads, dumps
-from flask import Flask, request, jsonify
 
 def get_stdin():
   buf = ""
