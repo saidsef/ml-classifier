@@ -31,6 +31,7 @@ metadata:
   namespace: web
   labels:
     app: classifier
+    tier: frontend
   annotations:
     getambassador.io/config: |
       ---
@@ -48,6 +49,7 @@ spec:
   - protocol: TCP
     port: 7070
     targetPort: 7070
+    name: web
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
