@@ -20,6 +20,7 @@ spec:
       containers:
       - name: classifier
         image: saidsef/ml-classifier:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 7070
 ---
