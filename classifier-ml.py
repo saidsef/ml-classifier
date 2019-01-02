@@ -3,19 +3,16 @@
 import os
 from classifier import Classifier
 from json import loads, dumps
-from flask import Flask, request, jsonify, Response
-from prometheus_client import multiprocess
-from prometheus_client import generate_latest
+from flask import Flask, request, jsonify
+from prometheus_flask_exporter import PrometheusMetrics
 
 clf   = Classifier().model()
 PORT  = os.environ.get("PORT")
 app   = Flask(__name__)
 
-CONTENT_TYPE_LATEST = str('text/plain; version=0.0.4; charset=utf-8')
-
-@app.route('/metrics')
-def metrics():
-    return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
+#PrometheusMetrics(app, group_by='path')         # the default
+#PrometheusMetrics(app, group_by='endpoint')     # by endpoint
+PrometheusMetrics(app, group_by='url_rule')     # by URL rule
 
 @app.route('/', methods=['GET'])
 def index():

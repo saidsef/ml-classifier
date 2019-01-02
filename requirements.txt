@@ -2,4 +2,4 @@ scipy
 numpy
 sklearn
 flask
-prometheus_client
+prometheus-flask-exporter
