@@ -56,6 +56,16 @@ kind: Ingress
 metadata:
   name: classifier
   namespace: web
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, If-Modified-Since"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      server_tokens off;
+      location /metrics {
+        deny all;
+        return 301 /;
+      }
 spec:
   rules:
   - host: ml.saidsef.co.uk
