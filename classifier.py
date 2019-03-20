@@ -14,8 +14,8 @@ from sklearn.externals import joblib
 class Classifier(object):
   def __init__(self):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
-    self.pkl  = open('./data/lsvc.pickle', 'rb')
-    self.clf  = joblib.load(self.pkl)
+    with open('./data/lsvc.pickle', 'rb') as fh:
+      self.clf  = joblib.load(fh.read())
 
   def model(self):
     return self.clf
