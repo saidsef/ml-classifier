@@ -23,6 +23,19 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 7070
+          name: web
+       resources:
+          requests:
+           memory: "128Mi"
+           cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        livenessProbe:
+          tcpSocket:
+            port: 7070
+          initialDelaySeconds: 3
+          periodSeconds: 3
 ---
 apiVersion: v1
 kind: Service
@@ -32,15 +45,6 @@ metadata:
   labels:
     app: classifier
     tier: frontend
-  annotations:
-    getambassador.io/config: |
-      ---
-      apiVersion: ambassador/v0
-      kind:  Mapping
-      name:  classifier
-      prefix: /
-      service: classifier:7070
-      host: ml.saidsef.co.uk
 spec:
   type: NodePort
   selector:
