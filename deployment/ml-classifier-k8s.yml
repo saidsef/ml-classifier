@@ -23,7 +23,6 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 7070
-          name: web
        resources:
           requests:
            memory: "128Mi"
