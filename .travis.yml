@@ -6,7 +6,7 @@ git:
   depth: 3
   submodules: true
 before_script:
-  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+  - echo '$DOCKER_PASSWORD' | docker login --username $DOCKER_USERNAME --password-stdin
 script:
   - docker build -t saidsef/ml-classifier:latest .
   - docker build -t saidsef/ml-classifier:faas . -f Dockerfile.faas
