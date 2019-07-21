@@ -17,5 +17,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE ${PORT}
 
-CMD [classifier-ml.py"]
+CMD ["classifier-ml.py"]
 ENTRYPOINT ["python"]
