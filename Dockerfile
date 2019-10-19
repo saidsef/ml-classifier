@@ -17,5 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE ${PORT}
 
+HEALTHCHECK --interval=30s --timeout=10s CMD curl --fail http://localhost:${PORT}/ || exit 1
+
 CMD ["classifier-ml.py"]
 ENTRYPOINT ["python"]
