@@ -1,7 +1,8 @@
-FROM python:2-slim
-MAINTAINER Said Sef <saidsef@gmail.com> (saidsef.co.uk/)
+FROM python:3-slim
 
 ARG PORT=""
+
+LABEL maintainer="saidsef@gmail.com"
 
 ENV PORT ${PORT:-7070}
 ENV version 1.0
