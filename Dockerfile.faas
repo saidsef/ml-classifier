@@ -1,8 +1,9 @@
-FROM python:2-slim
-MAINTAINER Said Sef <saidsef@gmail.com> (saidsef.co.uk/)
+FROM python:3-slim
 
 ENV FAAS_VERSION 0.9.11
 ENV version 1.0
+
+LABEL maintainer="saidsef@gmail.com"
 
 WORKDIR /app
 
