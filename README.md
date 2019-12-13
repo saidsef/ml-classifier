@@ -85,7 +85,7 @@ And the response will look like:
 ## Kubernetes
 
 ```shell
-kubectl apply -f deployment/ml-classifier-k8s.yml
+kubectl apply -k ./deployment
 ```
 
 ## OpenFass
