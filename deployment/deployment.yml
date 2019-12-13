@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: classifier
+  namespace: web
+  labels:
+    name: classifier
+    app: classifier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: classifier
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "7070"
+      labels:
+        app: classifier
+    spec:
+      containers:
+      - name: classifier
+        image: saidsef/ml-classifier:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7070
+        resources:
+          requests:
+           memory: "128Mi"
+           cpu: "50m"
+          limits:
+            memory: "512Mi"
+            cpu: "100m"
+        livenessProbe:
+          tcpSocket:
+            port: 7070
+          initialDelaySeconds: 3
+          periodSeconds: 3
