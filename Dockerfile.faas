@@ -10,7 +10,7 @@ WORKDIR /app
 COPY classifier.py .
 COPY classifier-faas.py .
 COPY requirements.txt .
-COPY ./data/lsvc.pickle data/lsvc.pickle
+COPY ./data/lr.pickle data/lr.pickle
 
 RUN apt-get update && \
     apt-get install curl -yq && \
