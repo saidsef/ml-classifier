@@ -1,8 +1,12 @@
 #!?usr/bin/env python
 
 import sys
+import logging
 from classifier import Classifier
 from json import loads, dumps
+
+logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 def get_stdin():
   buf = ""

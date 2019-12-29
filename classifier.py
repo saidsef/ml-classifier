@@ -2,20 +2,19 @@
 
 import os
 import logging
-import numpy as np
-from json import loads, dumps
-from flask import Flask, request, jsonify
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.svm import LinearSVC
+from pickle import load
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
-from sklearn.externals import joblib
+
+logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 class Classifier(object):
   def __init__(self):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     with open('./data/lr.pickle', 'rb') as fh:
-      self.clf  = joblib.load(fh)
+      self.clf  = load(fh)
 
   def model(self):
     return self.clf
