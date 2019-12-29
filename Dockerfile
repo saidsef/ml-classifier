@@ -12,7 +12,7 @@ WORKDIR /app
 COPY classifier.py .
 COPY classifier-ml.py .
 COPY requirements.txt .
-COPY ./data/lsvc.pickle data/lsvc.pickle
+COPY ./data/lr.pickle data/lr.pickle
 
 RUN pip install --no-cache-dir -r requirements.txt
 
