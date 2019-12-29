@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
 import os
+import logging
 from classifier import Classifier
 from json import loads, dumps
 from flask import Flask, request, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
+
+logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 clf   = Classifier().model()
 PORT  = os.environ.get("PORT")
