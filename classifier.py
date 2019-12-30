@@ -4,7 +4,7 @@ import os
 import logging
 from pickle import load
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import make_pipeline
 
 logging.getLogger(__name__)
