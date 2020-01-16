@@ -1,7 +1,5 @@
 FROM python:3-slim
 
-ARG PORT=""
-
 LABEL maintainer="saidsef@gmail.com"
 
 ENV PORT ${PORT:-7070}
