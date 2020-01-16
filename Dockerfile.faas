@@ -1,6 +1,6 @@
 FROM python:3-slim
 
-ENV FAAS_VERSION 0.9.11
+ENV FAAS_VERSION 0.18.10
 ENV version 1.0
 
 LABEL maintainer="saidsef@gmail.com"
