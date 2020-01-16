@@ -33,8 +33,10 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "100m"
-#         livenessProbe:
-#           tcpSocket:
-#             port: 7070
-#           initialDelaySeconds: 3
-#           periodSeconds: 3
+        livenessProbe:
+          exec:
+            command:
+              - pgrep
+              - python
+          initialDelaySeconds: 3
+          periodSeconds: 3
