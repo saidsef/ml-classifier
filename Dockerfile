@@ -1,6 +1,6 @@
 FROM python:3-slim
 
-LABEL maintainer="saidsef@gmail.com"
+LABEL maintainer="Said Sef <saidsef@gmail.com>"
 
 ENV PORT ${PORT:-7070}
 ENV version 1.0
