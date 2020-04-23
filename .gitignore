@@ -1,4 +1,5 @@
 # stuff to ignore
+.ipynb_checkpoints/
 .vscode/
 *.pyc
 */*.zip
