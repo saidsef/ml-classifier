@@ -1,6 +1,6 @@
 FROM python:3-slim
 
-LABEL maintainer="saidsef@gmail.com"
+LABEL maintainer="Said Sef <saidsef@gmail.com>"
 
 ENV PORT ${PORT:-7070}
 ENV version 1.0
@@ -10,7 +10,7 @@ WORKDIR /app
 COPY classifier.py .
 COPY classifier-ml.py .
 COPY requirements.txt .
-COPY ./data/rfc.pickle data/rfc.pickle
+COPY ./data/randomforestclassifier.pickle data/randomforestclassifier.pickle
 
 RUN pip install --no-cache-dir -r requirements.txt
 

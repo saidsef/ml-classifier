@@ -3,14 +3,14 @@ FROM python:3-slim
 ENV FAAS_VERSION 0.18.10
 ENV version 1.0
 
-LABEL maintainer="saidsef@gmail.com"
+LABEL maintainer="Said Sef <saidsef@gmail.com>"
 
 WORKDIR /app
 
 COPY classifier.py .
 COPY classifier-faas.py .
 COPY requirements.txt .
-COPY ./data/rfc.pickle data/rfc.pickle
+COPY ./data/randomforestclassifier.pickle data/randomforestclassifier.pickle
 
 RUN apt-get update && \
     apt-get install curl -yq && \

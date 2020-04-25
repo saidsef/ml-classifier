@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import logging
@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 class Classifier(object):
   def __init__(self):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
-    with open('./data/rfc.pickle', 'rb') as fh:
+    with open('./data/randomforestclassifier.pickle', 'rb') as fh:
       self.clf  = load(fh)
 
   def model(self):
