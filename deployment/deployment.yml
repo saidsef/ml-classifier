@@ -26,6 +26,8 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 7070
+          protocol: TCP
+          name: web
         resources:
           requests:
            memory: "128Mi"
@@ -40,3 +42,14 @@ spec:
               - python
           initialDelaySeconds: 3
           periodSeconds: 3
+          failureThreshold: 1
+          successThreshold: 1
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: 7070
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 1
+          successThreshold: 1
+          timeoutSeconds: 3
