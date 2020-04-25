@@ -1,6 +1,6 @@
 -i https://pypi.org/simple
 scipy==1.4.1
-numpy==1.18.1
-scikit-learn==0.22.1
-flask==1.1.1
-prometheus-flask-exporter==0.12.1
+numpy==1.18.3
+scikit-learn==0.22.2
+flask==1.1.2
+prometheus-flask-exporter==0.13.0
