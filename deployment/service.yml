@@ -8,7 +8,7 @@ metadata:
     app: classifier
     tier: frontend
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: classifier
   ports:
