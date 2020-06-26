@@ -53,3 +53,8 @@ spec:
           failureThreshold: 1
           successThreshold: 1
           timeoutSeconds: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          runAsGroup: 1000
+          runAsUser: 1000
