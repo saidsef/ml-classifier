@@ -17,10 +17,10 @@ before_script:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 script:
   - |
-   if [ $TRAVIS_BRANCH == "master" ]; then
+   if [ "$TRAVIS_BRANCH" == "master" ]; then
      export TAG="latest"
    else
-     export TAG=$TRAVIS_BRANCH
+     export TAG="$TRAVIS_BRANCH"
    fi
   - docker buildx build --platform linux/amd64 -t saidsef/ml-classifier:$TAG --push .
   - docker buildx build --platform linux/amd64 -t saidsef/ml-classifier:faas-$TAG --push . -f Dockerfile.faas
