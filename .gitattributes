@@ -1,6 +1,6 @@
-*               text=auto
-*.txt		text
+*         text=auto
+*.txt		  text
 *.vcproj	text eol=crlf
-*.sh		text eol=lf
-*.jpg		binary
-*.pickle        binary
+*.sh		  text eol=lf
+*.jpg		  binary
+*.pickle  binary
