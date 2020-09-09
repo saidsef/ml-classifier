@@ -5,26 +5,29 @@ Classify news articles into different categories using Machine Learning.  The da
 My goal is to show you how to create a predictive model that will classify news articles.
 
 ## Objective
- - To classify news articles
- - Learn the basics of natural language processing
- - Build models using sklearn and choose the best one
- - Use sklearn's make_pipeline class
- - Learn how to turn it into a service
- - Learn how to make it composable and portable
- - Profit?
+
+- To classify news articles
+- Learn the basics of natural language processing
+- Build models using sklearn and choose the best one
+- Use sklearn's make_pipeline class
+- Learn how to turn it into a service
+- Learn how to make it composable and portable
+- Profit?
 
 ## Prerequisite
- - Python v2.7 or v3.x
- - Jupyter Notebook
- - Some knowledge of Machine Learning
+
+- Python v2.7 or v3.x
+- Jupyter Notebook
+- Some knowledge of Machine Learning
 
 ## Python Libs
- - NumPy
- - Pandas
- - SciPy
- - Matplotlib
- - Jupyter
- - Scikit-learn (the library that we will use later in this post when creating the predictive models)
+
+- NumPy
+- Pandas
+- SciPy
+- Matplotlib
+- Jupyter
+- Scikit-learn (the library that we will use later in this post when creating the predictive models)
 
 ## We Will 
  - Apply some preprocessing steps to prepare the data.
