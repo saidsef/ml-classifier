@@ -3,7 +3,7 @@ FROM python:3-slim
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 
 ENV PORT ${PORT:-7070}
-ENV version 1.0
+ENV version 2.0
 
 WORKDIR /app
 
@@ -12,7 +12,10 @@ COPY classifier-ml.py .
 COPY requirements.txt .
 COPY ./data/randomforestclassifier.pickle data/randomforestclassifier.pickle
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+    chown nobody -R /app
+
+USER nobody
 
 EXPOSE ${PORT}
 
