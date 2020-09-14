@@ -1,7 +1,7 @@
 FROM python:3-slim
 
 ENV FAAS_VERSION 0.18.18
-ENV version 1.0
+ENV version 2.0
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 
@@ -19,7 +19,10 @@ RUN apt-get update && \
     apt-get purge -yq curl && \
     apt-get clean && apt-get autoclean -yq && \
     rm -rf /var/cache/apt/* /tmp/* && \
-    chmod a+x /usr/bin/fwatchdog
+    chmod a+x /usr/bin/fwatchdog && \
+    chown nobody -R /app
+
+USER nobody
 
 HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
 
