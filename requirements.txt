@@ -3,4 +3,5 @@ scipy==1.4.1
 numpy==1.18.3
 scikit-learn==0.22.2
 flask==1.1.2
+flask-talisman==0.7.0
 prometheus-flask-exporter==0.13.0
