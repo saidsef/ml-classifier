@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: classifier
@@ -20,6 +20,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: classifier
-          servicePort: 7070
+          service:
+            name: classifier
+            port:
+              number: 7070
