@@ -16,7 +16,7 @@ metadata:
       }
 spec:
   rules:
-  - host: ml.saidsef.co.uk
+  - host: ml.hostname.tld
     http:
       paths:
       - path: /
