@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: classifier
@@ -16,10 +16,13 @@ metadata:
       }
 spec:
   rules:
-  - host: ml.saidsef.co.uk
+  - host: ml.hostname.tld
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: classifier
-          servicePort: 7070
+          service:
+            name: classifier
+            port:
+              number: 7070
