@@ -29,13 +29,14 @@ My goal is to show you how to create a predictive model that will classify news 
 - Jupyter
 - Scikit-learn (the library that we will use later in this post when creating the predictive models)
 
-## We Will 
- - Apply some preprocessing steps to prepare the data.
- - Then, we will perform a descriptive analysis of the data to better understand the main characteristics that they have
- - We will continue by practicing how to train different machine learning models using scikit-learn. It is one of the most popular python libraries for machine learning 
- - We will also use a subset of the dataset for training purposes
- - Then, we will iterate and evaluate the learned models by using unseen data. Later, we will compare them until we find a good model that meets our expectations
- - Once we have chosen the candidate model, we will use it to perform predictions and to create a simple web application that consumes this predictive model
+## We Will
+
+- Apply some preprocessing steps to prepare the data.
+- Then, we will perform a descriptive analysis of the data to better understand the main characteristics that they have
+- We will continue by practicing how to train different machine learning models using scikit-learn. It is one of the most popular python libraries for machine learning
+- We will also use a subset of the dataset for training purposes
+- Then, we will iterate and evaluate the learned models by using unseen data. Later, we will compare them until we find a good model that meets our expectations
+- Once we have chosen the candidate model, we will use it to perform predictions and to create a simple web application that consumes this predictive model
 
 ## Getting started with the machine learning tutorial
 
