@@ -13,7 +13,7 @@ script:
    else
      export TAG="$TRAVIS_BRANCH"
    fi
-  - docker build -t saidsef/ml-classifier:$TAG --push .
+  - docker build -t saidsef/ml-classifier:$TAG .
   - docker build -t saidsef/ml-classifier:faas-$TAG . -f Dockerfile.faas
   - docker push saidsef/ml-classifier
 notifications:
