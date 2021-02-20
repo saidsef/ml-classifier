@@ -65,7 +65,7 @@ The payload should be [JSON format](test/test.json)
 
 ```shell
 {
-  "payload": "text-goes-here"
+  "body": "text-goes-here"
 }
 ```
 
