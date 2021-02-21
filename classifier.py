@@ -17,7 +17,13 @@ logging.basicConfig(level=logging.DEBUG)
 class Classifier(object):
   def __init__(self):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
-    self.clf  = load(lzma.open('./data/randomforestclassifier.pickle.xz', 'rb'))
+    try:
+      with lzma.open('./data/randomforestclassifier.pickle.xz', 'rb') as fh:
+        self.clf  = load(fh)
+    except IOError:
+      logging.error("Unable to load file")
+    finally:
+      logging.info("Done loading file")
 
   def model(self):
     return self.clf
