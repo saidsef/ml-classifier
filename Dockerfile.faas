@@ -10,7 +10,7 @@ WORKDIR /app
 COPY classifier.py .
 COPY classifier-faas.py .
 COPY requirements.txt .
-COPY ./data/randomforestclassifier.pickle data/randomforestclassifier.pickle
+COPY ./data/randomforestclassifier.pickle.xz data/randomforestclassifier.pickle.xz
 
 RUN apt-get update && \
     apt-get install curl -yq && \
