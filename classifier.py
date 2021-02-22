@@ -29,6 +29,12 @@ class Classifier(object):
     return self.clf
 
   def train(self, data):
-    xtrain, xtest, ytrain, ytest = train_test_split(tuple(data['body']), tuple(data['categories']), test_size=0.2, random_state=0)
-    self.clf.fit(xtrain, ytrain)
-    return dumps(Counter(self.clf.predict([data['body']])[0]), indent=4)
+    p = {'message': 'healthy'}
+    try:
+      xtrain, xtest, ytrain, ytest = train_test_split(dict(data['body']), dict(data['categories']), test_size=0.2, random_state=0)
+      self.clf.fit(xtrain, ytrain)
+    except Exception as e:
+      p = {'error': "{}".format(str(e)) }
+      pass
+    finally:
+      return p
