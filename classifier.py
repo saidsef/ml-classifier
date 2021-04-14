@@ -12,7 +12,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import make_pipeline
 
 logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 class Classifier(object):
   def __init__(self):
@@ -35,6 +35,5 @@ class Classifier(object):
       self.clf.fit(xtrain, ytrain)
     except Exception as e:
       p = {'error': "{}".format(str(e)) }
-      pass
     finally:
       return p
