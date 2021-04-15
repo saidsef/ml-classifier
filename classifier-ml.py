@@ -8,14 +8,12 @@ from flask import Flask, request, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
 
 logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 clf   = Classifier().model()
 PORT  = os.environ.get("PORT")
 app   = Flask(__name__)
 
-#PrometheusMetrics(app, group_by='path')       # the default
-#PrometheusMetrics(app, group_by='endpoint')   # by endpoint
 PrometheusMetrics(app, group_by='url_rule')    # by URL rule
 
 @app.route('/', methods=['GET'])
