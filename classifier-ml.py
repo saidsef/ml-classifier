@@ -5,6 +5,7 @@ import logging
 from classifier import Classifier
 from json import loads, dumps
 from flask import Flask, request, jsonify
+from flask_wtf.csrf import CSRFProtect
 from prometheus_flask_exporter import PrometheusMetrics
 
 logging.getLogger(__name__)
@@ -13,7 +14,9 @@ logging.basicConfig(level=logging.WARNING)
 clf   = Classifier().model()
 PORT  = os.environ.get("PORT")
 app   = Flask(__name__)
+csrf  = CSRFProtect()
 
+csrf.init_app(app)
 PrometheusMetrics(app, group_by='url_rule')    # by URL rule
 
 @app.route('/', methods=['GET'])
