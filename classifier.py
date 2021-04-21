@@ -16,7 +16,6 @@ logging.basicConfig(level=logging.WARNING)
 
 class Classifier(object):
   def __init__(self):
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     try:
       with lzma.open('./data/randomforestclassifier.pickle.xz', 'rb') as fh:
         self.clf  = load(fh)
@@ -35,5 +34,4 @@ class Classifier(object):
       self.clf.fit(xtrain, ytrain)
     except Exception as e:
       p = {'error': "{}".format(str(e)) }
-    finally:
-      return p
+
