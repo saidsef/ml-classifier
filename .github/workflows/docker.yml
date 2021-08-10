@@ -36,7 +36,8 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Push docker image
       run: |
-        docker push docker.io/saidsef/ml-classifier
+        docker push docker.io/saidsef/ml-classifier:${{ env.TAG == 'master' && 'latest' || env.TAG }} 
+        docker push docker.io/saidsef/ml-classifier:faas-${{ env.TAG == 'master' && 'latest' || env.TAG }}
   test:
     runs-on: ubuntu-latest
     needs: [build]
