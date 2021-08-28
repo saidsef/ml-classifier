@@ -30,7 +30,7 @@ jobs:
       - name: Create Release
         uses: actions/github-script@v4
         id: release
-        if: success()
+        if: ${{ env.TAG }}
         with:
           github-token: ${{ github.token }}
           result-encoding: string
