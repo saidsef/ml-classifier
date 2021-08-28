@@ -47,6 +47,7 @@ jobs:
             });
 
             return release.data.id;
+
       - name: Upload Release Assets
         uses: actions/github-script@v4
         if: ${{ steps.release.outputs.result }}
