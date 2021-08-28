@@ -23,6 +23,7 @@ jobs:
           docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
       - name: Cache multiple paths
         uses: actions/cache@v2
+        if: ${{ env.TAG }}
         with:
           key: ${{ runner.os }}-${{ hashFiles('data/news.json') }}
           path: |
