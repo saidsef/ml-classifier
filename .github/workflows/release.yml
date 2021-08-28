@@ -18,51 +18,58 @@ jobs:
           export DATE=v$(echo `date +'%Y.%m'`)
           echo "DATE=${DATE}" >> $GITHUB_ENV
           echo "TAG=$(echo `git tag -l "${{ env.DATE }}"`)" >> $GITHUB_ENV
-      - name: Create models
-        if: ${{ env.TAG }}
+      - name: Check tag exists
         run: |
-          docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
-      - name: Cache multiple paths
-        uses: actions/cache@v2
-        if: ${{ env.TAG }}
-        with:
-          key: ${{ runner.os }}-${{ hashFiles('data/news.json') }}
-          path: |
-            ${{ github.workspace }}/data/*
-      - name: Create Release
-        uses: actions/github-script@v4
-        id: release
-        if: ${{ env.TAG }}
-        with:
-          github-token: ${{ github.token }}
-          result-encoding: string
-          script: |
-            const { repo: { owner, repo }, sha } = context;
-            const tag = process.env.DATE;
+          git tag -l
+          echo ${{ env.TAG }}
+          git tag -l ${{ env.TAG }}
 
-            const release = await github.repos.createRelease({
-              owner, repo,
-              tag_name: tag,
-              draft: false,
-              target_commitish: sha
-            });
+          env | sort
+      # - name: Create models
+      #   if: ${{ env.TAG }}
+      #   run: |
+      #     docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
+      # - name: Cache multiple paths
+      #   uses: actions/cache@v2
+      #   if: ${{ env.TAG }}
+      #   with:
+      #     key: ${{ runner.os }}-${{ hashFiles('data/news.json') }}
+      #     path: |
+      #       ${{ github.workspace }}/data/*
+      # - name: Create Release
+      #   uses: actions/github-script@v4
+      #   id: release
+      #   if: ${{ env.TAG }}
+      #   with:
+      #     github-token: ${{ github.token }}
+      #     result-encoding: string
+      #     script: |
+      #       const { repo: { owner, repo }, sha } = context;
+      #       const tag = process.env.DATE;
 
-            return release.data.id;
+      #       const release = await github.repos.createRelease({
+      #         owner, repo,
+      #         tag_name: tag,
+      #         draft: false,
+      #         target_commitish: sha
+      #       });
 
-      - name: Upload Release Assets
-        uses: actions/github-script@v4
-        if: ${{ steps.release.outputs.result }}
-        with:
-          github-token: ${{ github.token }}
-          script: |
-            const { repo: { owner, repo }, sha } = context;
-            const fs = require('fs').promises;
+      #       return release.data.id;
 
-            for (let file of await fs.readdir('./data')) {
-              await github.repos.uploadReleaseAsset({
-                owner, repo,
-                release_id: ${{ steps.release.outputs.result }},
-                name: file,
-                data: await fs.readFile(`./data/${file}`)
-              })
-            }
+      # - name: Upload Release Assets
+      #   uses: actions/github-script@v4
+      #   if: ${{ steps.release.outputs.result }}
+      #   with:
+      #     github-token: ${{ github.token }}
+      #     script: |
+      #       const { repo: { owner, repo }, sha } = context;
+      #       const fs = require('fs').promises;
+
+      #       for (let file of await fs.readdir('./data')) {
+      #         await github.repos.uploadReleaseAsset({
+      #           owner, repo,
+      #           release_id: ${{ steps.release.outputs.result }},
+      #           name: file,
+      #           data: await fs.readFile(`./data/${file}`)
+      #         })
+      #       }
