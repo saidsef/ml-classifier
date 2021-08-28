@@ -23,6 +23,7 @@ jobs:
           git tag -l
           echo ${{ env.TAG }}
           git tag -l ${{ env.TAG }}
+          git ls-remote --exit-code --tags origin ${{ env.DATE }} || echo 'not found'
 
           env | sort
       # - name: Create models
