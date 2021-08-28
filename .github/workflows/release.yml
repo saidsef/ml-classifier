@@ -17,8 +17,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Create models
-        run: |
-          docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
+        uses: docker://jupyter/datascience-notebook:latest
+        with:
+          args: -v $PWD:/app:rw -w "/app" -u root bash ./scripts/run.sh
+      # - name: Create models
+      #   run: |
+      #     docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
       - name: Cache multiple paths
         uses: actions/cache@v2
         with:
