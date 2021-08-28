@@ -15,7 +15,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Set Tag Value
         run: |
-          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
+          export DATE=v$(echo `date +'%Y.%m'`)
+          echo "DATE=${DATE}" >> $GITHUB_ENV
           echo "TAG=$(echo `git tag -l "${{ env.DATE }}"`)" >> $GITHUB_ENV
       - name: Create models
         if: ${{ env.TAG }}
