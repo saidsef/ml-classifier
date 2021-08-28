@@ -11,28 +11,26 @@ jobs:
     runs-on: ubuntu-latest
     # if: ${{ contains(github.ref, 'master') && github.event_name != 'schedule' }}
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - name: Set Tag Value
         run: |
           echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
-      - name: Check out repository code
-        uses: actions/checkout@v2
+          echo "TAG=$(echo `git tag -l "${{ env.DATE }}"`)" >> $GITHUB_ENV
       - name: Create models
-        uses: docker://jupyter/datascience-notebook:latest
-        with:
-          args: -v $PWD:/app:rw -w "/app" -u root bash ./scripts/run.sh
-      # - name: Create models
-      #   run: |
-      #     docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
+        if: ${{ env.TG != "" }}
+        run: |
+          docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
       - name: Cache multiple paths
         uses: actions/cache@v2
         with:
           key: ${{ runner.os }}-${{ hashFiles('data/news.json') }}
           path: |
             ${{ github.workspace }}/data/*
-
       - name: Create Release
         uses: actions/github-script@v4
         id: release
+        if: success()
         with:
           github-token: ${{ github.token }}
           result-encoding: string
@@ -48,7 +46,6 @@ jobs:
             });
 
             return release.data.id;
-
       - name: Upload Release Assets
         uses: actions/github-script@v4
         if: ${{ steps.release.outputs.result }}
