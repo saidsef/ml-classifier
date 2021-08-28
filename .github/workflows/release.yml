@@ -17,12 +17,11 @@ jobs:
         run: |
           export DATE=v$(echo `date +'%Y.%m'`)
           echo "DATE=${DATE}" >> $GITHUB_ENV
-          echo "TAG=$(echo `git tag -l "${{ env.DATE }}"`)" >> $GITHUB_ENV
+          echo "TAG=$(echo `git tag -l ${DATE}`)" >> $GITHUB_ENV
       - name: Check tag exists
         run: |
           git tag -l
           git tag -l ${{ env.DATE }}
-          git ls-remote --exit-code --tags origin ${{ env.DATE }} || echo 'not found'
 
       # - name: Create models
       #   if: ${{ env.TAG }}
