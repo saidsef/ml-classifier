@@ -21,11 +21,9 @@ jobs:
       - name: Check tag exists
         run: |
           git tag -l
-          echo ${{ env.TAG }}
-          git tag -l ${{ env.TAG }}
+          git tag -l ${{ env.DATE }}
           git ls-remote --exit-code --tags origin ${{ env.DATE }} || echo 'not found'
 
-          env | sort
       # - name: Create models
       #   if: ${{ env.TAG }}
       #   run: |
