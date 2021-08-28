@@ -18,7 +18,7 @@ jobs:
           echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
           echo "TAG=$(echo `git tag -l "${{ env.DATE }}"`)" >> $GITHUB_ENV
       - name: Create models
-        if: ${{ env.TAG != "" }}
+        if: ${{ env.TAG }}
         run: |
           docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
       - name: Cache multiple paths
