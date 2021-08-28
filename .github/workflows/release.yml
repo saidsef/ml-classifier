@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       - name: Set Tag Value
         run: |
           export DATE=v$(echo `date +'%Y.%m'`)
