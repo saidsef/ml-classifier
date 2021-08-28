@@ -19,7 +19,6 @@ jobs:
       - name: Create models
         run: |
           docker run -v $PWD:/app -w "/app" jupyter/datascience-notebook:latest bash ./scripts/run.sh
-          ls -lh data/
       - name: Cache multiple paths
         uses: actions/cache@v2
         with:
@@ -27,41 +26,39 @@ jobs:
           path: |
             ${{ github.workspace }}/data/*
 
-      # - name: Create Release
-      #   uses: actions/github-script@v4
-      #   id: release
-      #   with:
-      #     github-token: ${{ github.token }}
-      #     result-encoding: string
-      #     script: |
-      #       const { repo: { owner, repo }, sha } = context;
-      #       const tag = process.env.DATE;
+      - name: Create Release
+        uses: actions/github-script@v4
+        id: release
+        with:
+          github-token: ${{ github.token }}
+          result-encoding: string
+          script: |
+            const { repo: { owner, repo }, sha } = context;
+            const tag = process.env.DATE;
 
-      #       const release = await github.repos.createRelease({
-      #         owner, repo,
-      #         tag_name: tag,
-      #         draft: false,
-      #         target_commitish: sha
-      #       });
+            const release = await github.repos.createRelease({
+              owner, repo,
+              tag_name: tag,
+              draft: false,
+              target_commitish: sha
+            });
 
-      #       return release.data.id;
+            return release.data.id;
 
-      # - name: Upload Release Assets
-      #   uses: actions/github-script@v4
-      #   if: ${{ steps.release.outputs.result }}
-      #   with:
-      #     github-token: ${{ github.token }}
-      #     script: |
-      #       const { repo: { owner, repo }, sha } = context;
-      #       const fs = require('fs').promises;
+      - name: Upload Release Assets
+        uses: actions/github-script@v4
+        if: ${{ steps.release.outputs.result }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const { repo: { owner, repo }, sha } = context;
+            const fs = require('fs').promises;
 
-      #       for (let file of await fs.readdir('./data')) {
-      #         await github.repos.uploadReleaseAsset({
-      #           owner, repo,
-      #           release_id: ${{ steps.release.outputs.result }},
-      #           name: file,
-      #           data: await fs.readFile(`./data/${file}`)
-      #         })
-      #       }
-
-
+            for (let file of await fs.readdir('./data')) {
+              await github.repos.uploadReleaseAsset({
+                owner, repo,
+                release_id: ${{ steps.release.outputs.result }},
+                name: file,
+                data: await fs.readFile(`./data/${file}`)
+              })
+            }
