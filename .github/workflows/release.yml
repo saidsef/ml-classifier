@@ -1,0 +1,67 @@
+name: "Create Release"
+on:
+  push:
+    branches:
+      - "*"
+  # schedule:
+  #   - cron: '55 23 28 */1 *'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # if: ${{ contains(github.ref, 'master') && github.event_name != 'schedule' }}
+    steps:
+      - name: Set Tag Value
+        run: |
+          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Create models
+        run: |
+          docker run -v $PWD:/app -w "/app" jupyter/datascience-notebook:latest bash ./scripts/run.sh
+          ls -lh data/
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('data/news.json') }}
+          path: |
+            ${{ github.workspace }}/data/*
+
+      # - name: Create Release
+      #   uses: actions/github-script@v4
+      #   id: release
+      #   with:
+      #     github-token: ${{ github.token }}
+      #     result-encoding: string
+      #     script: |
+      #       const { repo: { owner, repo }, sha } = context;
+      #       const tag = process.env.DATE;
+
+      #       const release = await github.repos.createRelease({
+      #         owner, repo,
+      #         tag_name: tag,
+      #         draft: false,
+      #         target_commitish: sha
+      #       });
+
+      #       return release.data.id;
+
+      # - name: Upload Release Assets
+      #   uses: actions/github-script@v4
+      #   if: ${{ steps.release.outputs.result }}
+      #   with:
+      #     github-token: ${{ github.token }}
+      #     script: |
+      #       const { repo: { owner, repo }, sha } = context;
+      #       const fs = require('fs').promises;
+
+      #       for (let file of await fs.readdir('./data')) {
+      #         await github.repos.uploadReleaseAsset({
+      #           owner, repo,
+      #           release_id: ${{ steps.release.outputs.result }},
+      #           name: file,
+      #           data: await fs.readFile(`./data/${file}`)
+      #         })
+      #       }
+
+
