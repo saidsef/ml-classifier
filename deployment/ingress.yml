@@ -16,7 +16,7 @@ metadata:
       }
 spec:
   rules:
-  - host: ml.hostname.tld
+  - host: $(HOST)
     http:
       paths:
       - path: /
