@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: classifier
-  namespace: web
   labels:
     name: classifier
     app: classifier
