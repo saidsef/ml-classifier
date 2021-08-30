@@ -24,7 +24,7 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
       - name: classifier
-        image: saidsef/ml-classifier:latest
+        image: docker.io/saidsef/ml-classifier:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 7070
