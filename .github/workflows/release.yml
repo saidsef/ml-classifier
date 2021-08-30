@@ -43,15 +43,22 @@ jobs:
           script: |
             const { repo: { owner, repo }, sha } = context;
             const tag = process.env.DATE;
+            let release_id = 0;
 
-            const release = await github.repos.createRelease({
-              owner, repo,
-              tag_name: tag,
-              draft: false,
-              target_commitish: sha
-            });
+            try {
+              const release = await github.repos.createRelease({
+                owner, repo,
+                tag_name: tag,
+                draft: false,
+                target_commitish: sha
+              });
 
-            return release.data.id;
+              release_id = release.data.id;
+            } catch (e) {
+              console.log("Release failed " + e)
+            }
+
+            return release_id;
 
       - name: Upload Release Assets
         uses: actions/github-script@v4
