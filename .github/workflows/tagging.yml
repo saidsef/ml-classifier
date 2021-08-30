@@ -42,7 +42,7 @@ jobs:
               await github.git.updateRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                ref: "refs/tags/${{ env.DATE }}",
+                ref: "tags/${{ env.DATE }}",
                 sha: context.sha
               });
             }
