@@ -85,7 +85,7 @@ jobs:
           kubectl cluster-info
           export NS=`cat deployment/kustomization.yml  | grep namespace | awk '{ print $2 }'`
           if [ -z "$NS" ]; then
-            export NS='storage'
+            export NS='web'
           fi
           kubectl create namespace $NS
           kubectl apply -n $NS -k deployment/
