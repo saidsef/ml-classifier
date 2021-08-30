@@ -1,16 +1,13 @@
 # Reference docs: https://stackoverflow.com/questions/61686058/check-if-there-are-new-commits-since-the-latest-tag
-name: Create Release
+name: Release
 on:
-  # push:
-  #   branches:
-  #     - "v*"
   schedule:
     - cron: '55 23 28 */1 *'
-  workflow_run:
-    workflows:
-      - Tagging
-    types:
-      - completed
+  # workflow_run:
+  #   workflows:
+  #     - Tagging
+  #   types:
+  #     - completed
 
 jobs:
   release:
@@ -58,7 +55,7 @@ jobs:
 
       - name: Upload Release Assets
         uses: actions/github-script@v4
-        if: ${{ steps.release.outputs.result }}
+        if: ${{ steps.release.outputs.result && env.TAG }}
         with:
           github-token: ${{ github.token }}
           script: |
