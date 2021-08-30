@@ -25,19 +25,24 @@ jobs:
         with:
           github-token: ${{ github.token }}
           script: |
+            let tagExists = [];
             try {
-              await github.git.deleteRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: "tags/${{ env.DATE }}"
-              })
-            } catch (e) {
-              console.log("The tag doesn't exist yet: " + e)
-            } finally {
               await github.git.createRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "refs/tags/${{ env.DATE }}",
                 sha: context.sha
-              })
+              });
+            } catch (e) {
+              console.log("Tag already exists: " + e)
+              tagExists.push(e);
+            }
+
+            if (tagExists.length > 0) {
+              await github.git.updateRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: "refs/tags/${{ env.DATE }}",
+                sha: context.sha
+              });
             }
