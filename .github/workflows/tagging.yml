@@ -1,8 +1,13 @@
-name: "Tagging"
+name: Tagging
 on:
   push:
     branches:
       - master
+  workflow_run:
+    workflows:
+      - CodeQL
+    types:
+      - completed
 
 jobs:
   tagging:
