@@ -1,13 +1,19 @@
 name: New issues into Triage
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
+
 jobs:
-  automate-project-columns:
+  comment:
     runs-on: ubuntu-latest
     steps:
-      - uses: alex-page/github-project-automation-plus@v0.3.0
+      - uses: actions/github-script@v4
         with:
-          project: Backlog
-          column: Triage
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Thanks for Reporting!',
+              labels: ['Triage']
+            })
