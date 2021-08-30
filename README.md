@@ -16,7 +16,7 @@ My goal is to show you how to create a predictive model that will classify news 
 
 ## Prerequisite
 
-- Python v2.7 or v3.x
+- Python >= v3.8
 - Jupyter Notebook
 - Some knowledge of Machine Learning
 
@@ -40,14 +40,14 @@ My goal is to show you how to create a predictive model that will classify news 
 
 ## Getting started with the machine learning tutorial
 
-See [Jupyter Notebook](news-clf-ml.ipynb)
+See [Jupyter Notebook](https://machinelearningmastery.com/start-here/)
 
 ## Deployment
 
 As a container:
 
 ```shell
-docker run -d -p 7070:7070 saidsef/ml-classifier:latest
+docker run -d -p 7070:7070 docker.io/saidsef/ml-classifier:latest
 ```
 
 As a Python application:
@@ -90,12 +90,4 @@ And the response will look like:
 
 ```shell
 kubectl apply -k ./deployment
-```
-
-## OpenFass
-
-To deploy into [OpenFaas Serverless](https://github.com/openfaas/faas)
-
-```shell
-faas-cli deploy -f deployment/ml-classifier-openfaas.yml
 ```
