@@ -16,7 +16,7 @@ My goal is to show you how to create a predictive model that will classify news 
 
 ## Prerequisite
 
-- Python >= v3.8
+- Python >= v3.9
 - Jupyter Notebook
 - Some knowledge of Machine Learning
 
