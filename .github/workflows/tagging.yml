@@ -15,12 +15,12 @@ jobs:
     if: ${{ contains(github.ref, 'master') }}
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set Tag Value
         run: |
           echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
       - name: Create tag
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         if: ${{ env.DATE }}
         with:
           github-token: ${{ github.token }}
