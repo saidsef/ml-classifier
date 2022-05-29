@@ -20,11 +20,13 @@ csrf.init_app(app)
 PrometheusMetrics(app, group_by='url_rule')    # by URL rule
 
 @app.route('/', methods=['GET'])
-def index():
+def index() -> str:
+  ''' Returns list of available endpoints '''
   return jsonify(['{} {}'.format(list(rule.methods), rule) for rule in app.url_map.iter_rules() if 'static' not in str(rule)])
 
 @app.route('/api/v1/news', methods=['GET', 'POST'])
-def handler():
+def handler() -> str:
+  ''' Takes string and returns string classification '''
   if request.method == 'POST':
     data = loads(request.get_data())
     prediction = clf.predict([data['body']])
@@ -36,7 +38,8 @@ def handler():
     return jsonify(p)
 
 @app.route('/api/v1/train', methods=['POST'])
-def train():
+def train() -> str:
+  ''' Takes string and loads to training data '''
   if request.method == 'POST':
     data = loads(request.get_data())
     return Classifier().train(data)
