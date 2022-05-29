@@ -5,9 +5,10 @@ on:
       - main
   workflow_run:
     workflows:
-      - CodeQL
+      - CI
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   tagging:
@@ -20,14 +21,14 @@ jobs:
         run: |
           echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
       - name: Create tag
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ env.DATE }}
         with:
           github-token: ${{ github.token }}
           script: |
             let tagExists = [];
             try {
-              await github.git.createRef({
+              await github.rest.git.createRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "refs/tags/${{ env.DATE }}",
@@ -39,7 +40,7 @@ jobs:
             }
 
             if (tagExists.length > 0) {
-              await github.git.updateRef({
+              await github.rest.git.updateRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "tags/${{ env.DATE }}",
