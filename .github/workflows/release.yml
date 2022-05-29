@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Fetch remote tags
         run: git fetch origin +refs/tags/*:refs/tags/*
       - name: Set Tag Value
@@ -34,7 +34,7 @@ jobs:
           path: |
             ${{ github.workspace }}/data/*
       - name: Create Release
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         id: release
         if: ${{ env.TAG }}
         with:
@@ -61,7 +61,7 @@ jobs:
             return release_id;
 
       - name: Upload Release Assets
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         if: ${{ steps.release.outputs.result && env.TAG }}
         with:
           github-token: ${{ github.token }}
