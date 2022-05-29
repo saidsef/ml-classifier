@@ -34,4 +34,3 @@ class Classifier(object):
       self.clf.fit(xtrain, ytrain)
     except Exception as e:
       p = {'error': "{}".format(str(e)) }
-
