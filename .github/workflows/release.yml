@@ -35,7 +35,7 @@ jobs:
           path: |
             ${{ github.workspace }}/data/*
       - name: Create Release
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         id: release
         if: ${{ env.TAG }}
         with:
@@ -47,7 +47,7 @@ jobs:
             let release_id = 0;
 
             try {
-              const release = await github.repos.createRelease({
+              const release = await github.rest.repos.createRelease({
                 owner, repo,
                 tag_name: tag,
                 draft: false,
@@ -62,7 +62,7 @@ jobs:
             return release_id;
 
       - name: Upload Release Assets
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ steps.release.outputs.result && env.TAG }}
         with:
           github-token: ${{ github.token }}
@@ -71,7 +71,7 @@ jobs:
             const fs = require('fs').promises;
 
             for (let file of await fs.readdir('./data')) {
-              await github.repos.uploadReleaseAsset({
+              await github.rest.repos.uploadReleaseAsset({
                 owner, repo,
                 release_id: ${{ steps.release.outputs.result }},
                 name: file,
