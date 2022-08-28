@@ -2,8 +2,7 @@
 .ipynb_checkpoints/
 .vscode/
 *.pyc
-*/*.zip
 **/*.zip
-*/*.tar
 **/*.tar
+**/*.tar.gz
 **/*.xz
