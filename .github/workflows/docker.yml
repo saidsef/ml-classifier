@@ -110,4 +110,4 @@ jobs:
           fi
           kubectl create namespace $NS
           kubectl apply -n $NS -k deployment/
-          kubectl get all -n $NS
+          kubectl get all -A
