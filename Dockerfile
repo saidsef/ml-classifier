@@ -5,7 +5,7 @@ LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 
 ENV PORT ${PORT:-7070}
 ENV VERSION 4.0
-ENV MODEL v2022.05
+ENV MODEL v2022.06
 
 WORKDIR /app
 
