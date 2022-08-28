@@ -1,16 +1,17 @@
 name: New issues into Triage
 on:
   issues:
-    types: [opened, reopened]
+    types: [opened]
 
 jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v5
+      - uses: actions/github-script@v6
         with:
+          github-token: ${{ github.token }}
           script: |
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,

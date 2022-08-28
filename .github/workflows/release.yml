@@ -1,14 +1,14 @@
 # Reference docs: https://stackoverflow.com/questions/61686058/check-if-there-are-new-commits-since-the-latest-tag
 name: Release
 on:
-  schedule:
-    - cron: '55 23 28 */1 *'
+  workflow_run:
+    workflows:
+      - Tagging
+    types:
+      - completed
+    branch:
+      - main
   workflow_dispatch:
-  # workflow_run:
-  #   workflows:
-  #     - Tagging
-  #   types:
-  #     - completed
 
 jobs:
   release:
