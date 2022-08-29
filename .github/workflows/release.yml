@@ -17,7 +17,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          lsf: 'true'
+          lfs: 'true'
       - name: Fetch remote tags
         run: git fetch origin +refs/tags/*:refs/tags/*
       - name: Set Tag Value
