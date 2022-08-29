@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          lsf: 'true'
       - name: Fetch remote tags
         run: git fetch origin +refs/tags/*:refs/tags/*
       - name: Set Tag Value
@@ -25,8 +27,10 @@ jobs:
           echo "TAG=$(echo `git tag -l ${DATE}`)" >> $GITHUB_ENV
       - name: Create models
         if: ${{ env.TAG }}
+        env:
+          NOTEBOOK_TIMEOUT: "1200"
         run: |
-          docker run -v $PWD:/app:rw -w "/app" -u root jupyter/datascience-notebook:latest bash ./scripts/run.sh
+          docker run -v $PWD:/app:rw -w "/app" -u root docker.io/jupyter/datascience-notebook:latest bash ./scripts/run.sh
       - name: Cache multiple paths
         uses: actions/cache@v2
         if: ${{ env.TAG }}
