@@ -13,6 +13,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.ref, 'main') }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -32,7 +33,7 @@ jobs:
         run: |
           docker run -v $PWD:/app:rw -w "/app" -u root docker.io/jupyter/datascience-notebook:latest bash ./scripts/run.sh
       - name: Cache multiple paths
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         if: ${{ env.TAG }}
         with:
           key: ${{ runner.os }}-${{ env.TAG }}-${{ hashFiles('data/news.json') }}
@@ -49,21 +50,25 @@ jobs:
             const { repo: { owner, repo }, sha } = context;
             const tag = process.env.DATE;
             let release_id = 0;
-
             try {
               const release = await github.rest.repos.createRelease({
                 owner, repo,
                 tag_name: tag,
+                title: tag,
                 draft: false,
                 target_commitish: sha
               });
-
               release_id = release.data.id;
             } catch (e) {
-              console.log("Release failed " + e)
+              let latest;
+              if (e.status == 422) { // Release alredy exists
+                latest = await github.rest.repos.getLatestRelease({
+                  owner, repo
+                });
+              }
+              release_id = latest.data.id;
             }
-
-            return release_id;
+            return release_id
 
       - name: Upload Release Assets
         uses: actions/github-script@v6
@@ -73,12 +78,26 @@ jobs:
           script: |
             const { repo: { owner, repo }, sha } = context;
             const fs = require('fs').promises;
-
-            for (let file of await fs.readdir('./data')) {
-              await github.rest.repos.uploadReleaseAsset({
+            try {
+              let asset_ids = await github.rest.repos.listReleaseAssets({
                 owner, repo,
-                release_id: ${{ steps.release.outputs.result }},
-                name: file,
-                data: await fs.readFile(`./data/${file}`)
+                release_id: ${{ steps.release.outputs.result }}
               })
+              for (let asset of asset_ids.data) {
+                await github.rest.repos.deleteReleaseAsset({
+                  owner, repo,
+                  asset_id: asset.id
+                });
+              }
+            } catch (e) {
+              console.log(e.status);
+            } finally {
+              for (let file of await fs.readdir('./data')) {
+                await github.rest.repos.uploadReleaseAsset({
+                  owner, repo,
+                  release_id: ${{ steps.release.outputs.result }},
+                  name: file,
+                  data: await fs.readFile(`./data/${file}`)
+                })
+              }
             }
