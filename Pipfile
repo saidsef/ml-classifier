@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "==2.1.0"
+flask = "==2.2.2"
 flask-wtf = "==1.0.1"
 numpy = "==1.23.2"
 prometheus-flask-exporter = "==0.18.0"
