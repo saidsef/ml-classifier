@@ -5,14 +5,14 @@ on:
       - CI
     types:
       - completed
-    branch:
+    branches:
       - main
   workflow_dispatch:
 
 jobs:
   tagging:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.ref, 'main') }}
+    if: ${{ contains(github.ref, 'main') && github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
