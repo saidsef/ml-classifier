@@ -59,7 +59,7 @@ spec:
           runAsGroup: 65534
           runAsUser: 65534
           runAsNonRoot: true
-          readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: false
           capabilities:
             drop:
               - ALL
