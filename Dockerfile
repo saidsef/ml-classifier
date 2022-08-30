@@ -14,6 +14,8 @@ COPY classifier-ml.py .
 COPY requirements.txt .
 ADD https://github.com/saidsef/ml-classifier/releases/download/${MODEL}/randomforestclassifier.pickle.xz data/randomforestclassifier.pickle.xz
 
+RUN apk add --no-cache --update-cache gfortran build-base wget libpng-dev openblas-dev
+RUN apk add py3-scipy
 RUN pip install --no-cache-dir -r requirements.txt && \
     chown nobody -R /app
 
