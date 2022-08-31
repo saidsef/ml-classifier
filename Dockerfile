@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.10.6-alpine
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
