@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.9-buster
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
@@ -6,6 +6,7 @@ LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 ENV PORT ${PORT:-7070}
 ENV VERSION 4.0
 ENV MODEL v2022.06
+ENV FLASK_APP "classifier-ml.py"
 
 WORKDIR /app
 
@@ -14,8 +15,6 @@ COPY classifier-ml.py .
 COPY requirements.txt .
 ADD https://github.com/saidsef/ml-classifier/releases/download/${MODEL}/randomforestclassifier.pickle.xz data/randomforestclassifier.pickle.xz
 
-RUN apk add --no-cache --update-cache curl gfortran build-base wget libpng-dev openblas-dev
-RUN apk add --no-cache py3-scipy
 RUN pip install --no-cache-dir -r requirements.txt && \
     chown nobody -R /app
 
