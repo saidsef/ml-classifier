@@ -69,6 +69,8 @@ jobs:
         context: .
         push: true
         tags: docker.io/saidsef/ml-classifier:${{ env.TAG == 'main' && 'latest' || env.TAG }}
+        cache-from: type=registry,ref=docker.io/saidsef/ml-classifier:${{ env.TAG == 'main' && 'latest' || env.TAG }}
+        cache-to: type=inline
     - name: Build and push Docker image - tag
       uses: docker/build-push-action@v3
       if: ${{ contains(github.ref, 'main') }}
@@ -78,6 +80,8 @@ jobs:
         context: .
         push: true
         tags: docker.io/saidsef/ml-classifier:${{ env.DATE }}
+        cache-from: type=registry,ref=docker.io/saidsef/ml-classifier:${{ env.DATE }}
+        cache-to: type=inline
     - name: Run Trivy vulnerability scanner - Server
       uses: aquasecurity/trivy-action@master
       with:
