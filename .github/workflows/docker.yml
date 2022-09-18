@@ -106,6 +106,7 @@ jobs:
       - name: Run K8s test
         run: |
           kubectl cluster-info
+          kubectl version --short
           export NS=`cat deployment/kustomization.yml  | grep namespace | awk '{ print $2 }'`
           if [ -z "$NS" ]; then
             export NS='web'
