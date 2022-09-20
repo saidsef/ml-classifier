@@ -1,11 +1,11 @@
-FROM python:3.10.7-buster
+FROM python:3-buster
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 
 ENV PORT ${PORT:-7070}
-ENV VERSION 4.0
-ENV MODEL v2022.06
+ENV VERSION 4.2
+ENV MODEL v2022.09
 ENV FLASK_APP "classifier-ml.py"
 
 WORKDIR /app
@@ -22,7 +22,7 @@ USER nobody
 
 EXPOSE ${PORT}
 
-HEALTHCHECK --interval=30s --timeout=10s CMD curl --fail http://localhost:${PORT}/ || exit 1
+HEALTHCHECK --interval=60s --timeout=10s CMD curl --fail http://localhost:${PORT}/ || exit 1
 
 CMD ["classifier-ml.py"]
 ENTRYPOINT ["python"]
