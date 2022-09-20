@@ -6,11 +6,11 @@ name = "pypi"
 [packages]
 flask = "==2.2.2"
 flask-wtf = "==1.0.1"
-numpy = "==1.23.3"
+numpy = "==1.23.2"
 prometheus-flask-exporter = "==0.20.3"
 scikit-learn = "==1.1.2"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"
