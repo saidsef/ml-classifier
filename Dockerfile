@@ -5,7 +5,7 @@ LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 
 ENV PORT ${PORT:-7070}
 ENV VERSION 4.2
-ENV MODEL v2022.06
+ENV MODEL v2022.09
 ENV FLASK_APP "classifier-ml.py"
 
 WORKDIR /app
