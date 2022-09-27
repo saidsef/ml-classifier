@@ -1,4 +1,4 @@
-FROM python:3-buster
+FROM python:3.10-buster
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
