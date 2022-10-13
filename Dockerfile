@@ -1,10 +1,10 @@
-FROM python:3.10-buster
+FROM docker.io/python:3.10-slim-buster
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 
 ENV PORT ${PORT:-7070}
-ENV VERSION 4.2
+ENV VERSION 4.3
 ENV MODEL v2022.09
 ENV FLASK_APP "classifier-ml.py"
 
