@@ -7,7 +7,7 @@ name = "pypi"
 flask = "==2.2.2"
 flask-wtf = "==1.0.1"
 numpy = "==1.23.3"
-prometheus-flask-exporter = "==0.20.3"
+prometheus-flask-exporter = "==0.21.0"
 scikit-learn = "==1.1.2"
 
 [dev-packages]
