@@ -4,8 +4,8 @@ LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 
 ENV PORT ${PORT:-7070}
-ENV VERSION 4.3
-ENV MODEL v2022.09
+ENV VERSION 4.5
+ENV MODEL v2022.10
 ENV FLASK_APP "classifier-ml.py"
 
 WORKDIR /app
