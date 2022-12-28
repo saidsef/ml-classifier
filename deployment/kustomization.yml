@@ -10,7 +10,7 @@ resources:
 images:
 - name: docker.io/saidsef/ml-classifier
 - newName: docker.io/saidsef/ml-classifier
-- newTag: latest
+- newTag: v2022.12
 
 vars:
 - name: HOST

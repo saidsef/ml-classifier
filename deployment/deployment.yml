@@ -7,7 +7,7 @@ metadata:
     name: classifier
     app: classifier
 spec:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 1
   replicas: 1
   selector:
     matchLabels:
@@ -21,9 +21,11 @@ spec:
         app: classifier
     spec:
       terminationGracePeriodSeconds: 60
+      automountServiceAccountToken: false
+      securityContext: {}
       containers:
       - name: classifier
-        image: docker.io/saidsef/ml-classifier:latest
+        image: docker.io/saidsef/ml-classifier:v2022.12
         imagePullPolicy: Always
         ports:
         - containerPort: 7070
@@ -39,7 +41,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: 7070
-          initialDelaySeconds: 5
+          initialDelaySeconds: 10
           periodSeconds: 5
           failureThreshold: 3
           successThreshold: 1
@@ -59,10 +61,20 @@ spec:
           runAsGroup: 65534
           runAsUser: 65534
           runAsNonRoot: true
-          readOnlyRootFilesystem: false
+          readOnlyRootFilesystem: true
+          seccompProfile:
+            type: RuntimeDefault
           capabilities:
             drop:
               - ALL
             add:
               - NET_BIND_SERVICE
-              - SYS_TIME
+        volumeMounts:
+          - name: tmp
+            mountPath: /tmp
+            subPath: tmp
+            readOnly: false
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 1Gi

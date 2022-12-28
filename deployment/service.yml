@@ -8,6 +8,7 @@ metadata:
     tier: frontend
 spec:
   type: ClusterIP
+  sessionAffinity: None
   selector:
     app: classifier
   ports:
