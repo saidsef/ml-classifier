@@ -26,12 +26,17 @@ jobs:
           github-token: ${{ github.token }}
           script: |
             let tagExists = [];
+            const commit = await github.rest.repos.getCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'main'
+            });
             try {
               await github.rest.git.createRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "refs/tags/${{ env.DATE }}",
-                sha: context.sha
+                sha: commit.data.sha.toString()
               });
             } catch (e) {
               console.log("Tag already exists: " + e)
@@ -43,6 +48,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "tags/${{ env.DATE }}",
-                sha: context.sha
+                sha: commit.data.sha.toString(),
+                force: true
               });
             }
