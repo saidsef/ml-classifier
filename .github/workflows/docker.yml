@@ -91,8 +91,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: docker.io/saidsef/ml-classifier:${{ env.TAG == 'main' && 'latest' || env.TAG }}
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
     - name: Upload Trivy scan results to GitHub Security tab - Server
       uses: github/codeql-action/upload-sarif@v2
