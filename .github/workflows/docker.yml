@@ -36,7 +36,7 @@ jobs:
         language: ['python']
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
@@ -51,7 +51,7 @@ jobs:
     needs: [analyze]
     steps:
     - name: Checkout source code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set Tag Name
       run: |
         echo "TAG=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
@@ -108,7 +108,7 @@ jobs:
         with:
           kubectl_version: "v1.24.4"
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run K8s test
         run: |
           kubectl cluster-info
