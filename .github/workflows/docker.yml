@@ -67,7 +67,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build and push Docker image - tag
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       env:
         DOCKER_BUILDKIT: 1
       with:
@@ -77,7 +77,7 @@ jobs:
         cache-from: type=registry,ref=docker.io/saidsef/ml-classifier:${{ env.TAG == 'main' && 'latest' || env.TAG }}
         cache-to: type=inline
     - name: Build and push Docker image - tag
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       if: ${{ contains(github.ref, 'main') }}
       env:
         DOCKER_BUILDKIT: 1
