@@ -105,8 +105,6 @@ jobs:
     steps:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.8.0
-        with:
-          kubectl_version: "v1.24.4"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run K8s test

@@ -54,6 +54,7 @@ jobs:
               const release = await github.rest.repos.createRelease({
                 owner, repo,
                 tag_name: tag,
+                name: tag,
                 title: tag,
                 draft: false,
                 target_commitish: sha
