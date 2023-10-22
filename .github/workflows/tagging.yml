@@ -36,7 +36,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "refs/tags/${{ env.DATE }}",
-                sha: commit.data.sha.toString()
+                sha: context.sha
               });
             } catch (e) {
               console.log("Tag already exists: " + e)
@@ -48,7 +48,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "tags/${{ env.DATE }}",
-                sha: commit.data.sha.toString(),
+                sha: context.sha,
                 force: true
               });
             }
