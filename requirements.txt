@@ -1,6 +1,6 @@
 -i https://pypi.org/simple
 flask==2.3.3
-flask_wtf==1.1.1
+flask_wtf==1.2.1
 numpy==1.25.2
 prometheus-flask-exporter==0.22.4
 scikit-learn==1.2.2
