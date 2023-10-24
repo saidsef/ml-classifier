@@ -1,5 +1,5 @@
 -i https://pypi.org/simple
-flask==2.3.3
+flask==3.0.0
 flask_wtf==1.2.1
 numpy==1.25.2
 prometheus-flask-exporter==0.22.4
