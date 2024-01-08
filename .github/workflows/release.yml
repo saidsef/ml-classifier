@@ -31,7 +31,7 @@ jobs:
         env:
           NOTEBOOK_TIMEOUT: "1200"
         run: |
-          docker run -v $PWD:/app:rw -w "/app" -u root docker.io/jupyter/datascience-notebook:2023-03-13 bash ./scripts/run.sh
+          docker run -v $PWD:/app:rw -w "/app" -u root docker.io/jupyter/datascience-notebook:2023-10-20 bash ./scripts/run.sh
       - name: Cache multiple paths
         uses: actions/cache@v3
         if: ${{ env.TAG }}
