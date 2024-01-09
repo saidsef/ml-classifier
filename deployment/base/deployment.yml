@@ -33,11 +33,11 @@ spec:
           name: http
         resources:
           requests:
-           memory: "512Mi"
-           cpu: "50m"
+           memory: "400Mi"
+           cpu: "10m"
           limits:
-            memory: "1Gi"
-            cpu: "100m"
+            memory: "512Mi"
+            cpu: "30m"
         livenessProbe:
           tcpSocket:
             port: 7070
@@ -67,8 +67,6 @@ spec:
           capabilities:
             drop:
               - ALL
-            add:
-              - NET_BIND_SERVICE
         volumeMounts:
           - name: tmp
             mountPath: /tmp
