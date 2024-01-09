@@ -33,15 +33,15 @@ spec:
           name: http
         resources:
           requests:
-           memory: "512Mi"
-           cpu: "50m"
+           memory: "640Mi"
+           cpu: "60m"
           limits:
-            memory: "1Gi"
-            cpu: "100m"
+            memory: "512Mi"
+            cpu: "70m"
         livenessProbe:
           tcpSocket:
             port: 7070
-          initialDelaySeconds: 10
+          initialDelaySeconds: 15
           periodSeconds: 5
           failureThreshold: 3
           successThreshold: 1
@@ -50,7 +50,7 @@ spec:
           httpGet:
             path: /metrics
             port: 7070
-          initialDelaySeconds: 10
+          initialDelaySeconds: 12
           periodSeconds: 5
           failureThreshold: 3
           successThreshold: 1
@@ -67,8 +67,6 @@ spec:
           capabilities:
             drop:
               - ALL
-            add:
-              - NET_BIND_SERVICE
         volumeMounts:
           - name: tmp
             mountPath: /tmp
