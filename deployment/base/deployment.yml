@@ -33,15 +33,15 @@ spec:
           name: http
         resources:
           requests:
-           memory: "400Mi"
-           cpu: "10m"
+           memory: "300Mi"
+           cpu: "30m"
           limits:
             memory: "512Mi"
-            cpu: "30m"
+            cpu: "50m"
         livenessProbe:
           tcpSocket:
             port: 7070
-          initialDelaySeconds: 10
+          initialDelaySeconds: 15
           periodSeconds: 5
           failureThreshold: 3
           successThreshold: 1
@@ -50,7 +50,7 @@ spec:
           httpGet:
             path: /metrics
             port: 7070
-          initialDelaySeconds: 10
+          initialDelaySeconds: 12
           periodSeconds: 5
           failureThreshold: 3
           successThreshold: 1
