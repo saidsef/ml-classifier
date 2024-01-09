@@ -101,4 +101,12 @@ jobs:
                   data: await fs.readFile(`./data/${file}`)
                 })
               }
+              for (let file of await fs.readdir('./classifier-ml.ipynb')) {
+                await github.rest.repos.uploadReleaseAsset({
+                  owner, repo,
+                  release_id: ${{ steps.release.outputs.result }},
+                  name: file,
+                  data: await fs.readFile(`./${file}`)
+                })
+              }
             }
