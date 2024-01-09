@@ -33,7 +33,7 @@ spec:
           name: http
         resources:
           requests:
-           memory: "300Mi"
+           memory: "400Mi"
            cpu: "40m"
           limits:
             memory: "512Mi"
