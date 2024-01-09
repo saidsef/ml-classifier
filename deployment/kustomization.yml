@@ -1,20 +1,10 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- deployment.yml
-- service.yml
-- ingress.yml
+- base/
 
 images:
 - name: docker.io/saidsef/ml-classifier
 - newName: docker.io/saidsef/ml-classifier
 - newTag: v2022.12
-
-vars:
-- name: HOST
-  objref:
-    name: classifier
-    kind: Ingress
-    apiVersion: networking.k8s.io/v1
