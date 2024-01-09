@@ -1,0 +1,18 @@
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: classifier
+spec:
+  parentRefs:
+  - kind: Gateway
+    name: external-gw
+    namespace: gateway-ingress
+    sectionName: https
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/v1/news
+    backendRefs:
+    - name: classifier
+      port: 7070
