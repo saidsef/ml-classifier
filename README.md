@@ -16,7 +16,7 @@ My goal is to show you how to create a predictive model that will classify news 
 
 ## Prerequisite
 
-- Python >= v3.9
+- Python >= v3.11
 - Jupyter Notebook
 - Some knowledge of Machine Learning
 
@@ -54,7 +54,7 @@ As a Python application:
 
 ```shell
 
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 PORT=7070 classifier-ml.py
 ```
@@ -63,10 +63,8 @@ PORT=7070 classifier-ml.py
 
 The payload should be [JSON format](test/test.json)
 
-```shell
-{
-  "body": "text-goes-here"
-}
+```json
+{ "body": "text-goes-here" }
 ```
 
 ## The Request

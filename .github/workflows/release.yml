@@ -70,7 +70,10 @@ jobs:
               release_id = latest.data.id;
             }
             return release_id
-
+      - name: Create sha256sum
+        run: |
+          cd data/
+          for f in *.xz; do echo `sha256sum $f` > $f.sha256sum; done
       - name: Upload Release Assets
         uses: actions/github-script@v7
         if: ${{ steps.release.outputs.result && env.TAG }}
