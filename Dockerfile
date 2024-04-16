@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.description="ML news classifier"
 
 ENV PORT ${PORT:-7070}
 ENV VERSION 4.5
-ENV MODEL v2024.01
+ENV MODEL v2024.04
 ENV FLASK_APP "classifier-ml.py"
 
 WORKDIR /app
