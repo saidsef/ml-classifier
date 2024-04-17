@@ -3,6 +3,7 @@
 *.vcproj	text eol=crlf
 *.sh		  text eol=lf
 *.jpg		  binary
+*.json   filter=lfs diff=lfs merge=lfs -text
 *.pickle filter=lfs diff=lfs merge=lfs -text
 *.xz     filter=lfs diff=lfs merge=lfs -text
 *.gz     filter=lfs diff=lfs merge=lfs -text

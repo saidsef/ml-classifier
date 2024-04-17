@@ -1,4 +1,4 @@
-# Machine Learning - News Articles classification with sklearn [![CI](https://github.com/saidsef/ml-classifier/actions/workflows/docker.yml/badge.svg)](#deployment) [![Tagging](https://github.com/saidsef/ml-classifier/actions/workflows/tagging.yml/badge.svg)](#deployment) [![Release](https://github.com/saidsef/ml-classifier/actions/workflows/release.yml/badge.svg)](#deployment)
+# Machine Learning - News Articles classification with sklearn [![CI](https://github.com/saidsef/ml-classifier/actions/workflows/ci.yml/badge.svg)](#deployment) [![Tagging](https://github.com/saidsef/ml-classifier/actions/workflows/tagging.yml/badge.svg)](#deployment) [![Release](https://github.com/saidsef/ml-classifier/actions/workflows/release.yml/badge.svg)](#deployment)
 
 Classify news articles into different categories using Machine Learning.  The dataset consists of 5000 documents and 40 categories.
 

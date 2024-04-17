@@ -26,19 +26,6 @@ jobs:
           export DATE=v$(echo `date +'%Y.%m'`)
           echo "DATE=${DATE}" >> $GITHUB_ENV
           echo "TAG=$(echo `git tag -l ${DATE}`)" >> $GITHUB_ENV
-      - name: Create models
-        if: ${{ env.TAG }}
-        env:
-          NOTEBOOK_TIMEOUT: "1200"
-        run: |
-          docker run -v $PWD:/app:rw -w "/app" -u root docker.io/jupyter/datascience-notebook:2023-10-20 bash ./scripts/run.sh
-      - name: Cache multiple paths
-        uses: actions/cache@v4
-        if: ${{ env.TAG }}
-        with:
-          key: ${{ runner.os }}-${{ env.TAG }}-${{ hashFiles('data/news.json') }}
-          path: |
-            ${{ github.workspace }}/data/*
       - name: Create Release
         uses: actions/github-script@v7
         id: release
@@ -70,44 +57,3 @@ jobs:
               release_id = latest.data.id;
             }
             return release_id
-      - name: Create sha256sum
-        run: |
-          cd data/
-          for f in *.xz; do echo `sha256sum $f` > $f.sha256sum; done
-      - name: Upload Release Assets
-        uses: actions/github-script@v7
-        if: ${{ steps.release.outputs.result && env.TAG }}
-        with:
-          github-token: ${{ github.token }}
-          script: |
-            const { repo: { owner, repo }, sha } = context;
-            const fs = require('fs').promises;
-            try {
-              let asset_ids = await github.rest.repos.listReleaseAssets({
-                owner, repo,
-                release_id: ${{ steps.release.outputs.result }}
-              })
-              for (let asset of asset_ids.data) {
-                await github.rest.repos.deleteReleaseAsset({
-                  owner, repo,
-                  asset_id: asset.id
-                });
-              }
-            } catch (e) {
-              console.log(e);
-            } finally {
-              for (let file of await fs.readdir('./data')) {
-                await github.rest.repos.uploadReleaseAsset({
-                  owner, repo,
-                  release_id: ${{ steps.release.outputs.result }},
-                  name: file,
-                  data: await fs.readFile(`./data/${file}`)
-                })
-              }
-              await github.rest.repos.uploadReleaseAsset({
-                owner, repo,
-                release_id: ${{ steps.release.outputs.result }},
-                name: 'classifier-ml.ipynb',
-                data: await fs.readFile(`./classifier-ml.ipynb`)
-              })
-            }
