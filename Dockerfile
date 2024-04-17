@@ -6,8 +6,6 @@ LABEL org.opencontainers.image.source="https://github.com/saidsef/ml-classifier"
 LABEL org.opencontainers.image.description="ML news classifier"
 
 ENV PORT ${PORT:-7070}
-ENV VERSION 4.5
-ENV MODEL v2024.04
 ENV FLASK_APP "classifier-ml.py"
 
 WORKDIR /app
@@ -15,7 +13,8 @@ WORKDIR /app
 COPY classifier.py .
 COPY classifier-ml.py .
 COPY requirements.txt .
-ADD https://github.com/saidsef/ml-classifier/releases/download/${MODEL}/randomforestclassifier.pickle.xz data/randomforestclassifier.pickle.xz
+COPY ./data/randomforestclassifier.pickle.xz data/randomforestclassifier.pickle.xz
+COPY ./data/randomforestclassifier.pickle.xz.sha256sum data/randomforestclassifier.pickle.xz.sha256sum
 
 RUN pip install --no-cache-dir -r requirements.txt && \
     chown nobody -R /app

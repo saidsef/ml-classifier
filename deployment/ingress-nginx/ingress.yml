@@ -15,7 +15,7 @@ metadata:
       }
 spec:
   rules:
-  - host: $(HOST)
+  - host: classifier
     http:
       paths:
       - path: /
