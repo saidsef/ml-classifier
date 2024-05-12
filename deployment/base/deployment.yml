@@ -33,11 +33,11 @@ spec:
           name: http
         resources:
           requests:
-           memory: "512Mi"
-           cpu: "60m"
+           memory: "1Gi"
+           cpu: "100m"
           limits:
-            memory: "640Mi"
-            cpu: "70m"
+            memory: "2Gi"
+            cpu: "200m"
         livenessProbe:
           tcpSocket:
             port: 7070
