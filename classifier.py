@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
-import os
+import os # pylint: disable=unused-import
 import lzma
 import logging
-from json import dumps
+from json import dumps # pylint: disable=unused-import
 from pickle import load
-from sklearn.ensemble import ExtraTreesClassifier, RandomForestClassifier, VotingClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import ExtraTreesClassifier, RandomForestClassifier, VotingClassifier # pylint: disable=unused-import
+from sklearn.model_selection import train_test_split # pylint: disable=unused-import
+from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer # pylint: disable=unused-import
+from sklearn.pipeline import Pipeline # pylint: disable=unused-import
+from sklearn.tree import DecisionTreeClassifier # pylint: disable=unused-import
+from sklearn.neural_network import MLPClassifier # pylint: disable=unused-import
 
 logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING)
