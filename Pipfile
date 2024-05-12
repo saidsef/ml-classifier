@@ -9,7 +9,7 @@ flask-wtf = "==1.2.1"
 numpy = "==1.26.4"
 prometheus-flask-exporter = "==0.23.0"
 scikit-learn = "==1.4.2"
-werkzeug = ">=3.0.1"
+werkzeug = ">=3.0.3"
 
 [dev-packages]
 

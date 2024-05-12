@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 
-import os
+import os # pylint: disable=unused-variable
 import lzma
 import logging
-from json import dumps
+from json import dumps # pylint: disable=unused-variable
 from pickle import load
-from collections import Counter
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.pipeline import make_pipeline
+from sklearn.ensemble import ExtraTreesClassifier, RandomForestClassifier, VotingClassifier # pylint: disable=unused-variable
+from sklearn.model_selection import train_test_split # pylint: disable=unused-variable
+from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer # pylint: disable=unused-variable
+from sklearn.pipeline import Pipeline # pylint: disable=unused-variable
+from sklearn.tree import DecisionTreeClassifier # pylint: disable=unused-variable
+from sklearn.neural_network import MLPClassifier # pylint: disable=unused-variable
 
 logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING)
@@ -17,13 +18,13 @@ logging.basicConfig(level=logging.WARNING)
 
 class Classifier(object):
   """
-  A classifier for categorising text data using a RandomForestClassifier.
+  A classifier for categorising text data using a VotingClassifier.
 
-  This class encapsulates the functionality to load a pre-trained RandomForestClassifier model,
+  This class encapsulates the functionality to load a pre-trained VotingClassifier model,
   provide access to the model, and support for re-training the model with new data.
 
   Attributes:
-  clf (RandomForestClassifier): The loaded RandomForestClassifier model.
+  clf (VotingClassifier): The loaded VotingClassifier model.
   """
 
   def __init__(self) -> None:
@@ -32,7 +33,7 @@ class Classifier(object):
     If the model file cannot be loaded, an error is logged.
     """
     try:
-      with lzma.open('./data/randomforestclassifier.pickle.xz', 'rb') as fh:
+      with lzma.open('./data/voting_classifier.pickle.xz', 'rb') as fh:
         self.clf = load(fh)
     except IOError:
       logging.error("Unable to load file")
@@ -41,10 +42,10 @@ class Classifier(object):
 
   def model(self) -> object:
     """
-    Provides access to the loaded RandomForestClassifier model.
+    Provides access to the loaded VotingClassifier model.
 
     Returns:
-    RandomForestClassifier: The loaded model.
+    VotingClassifier: The loaded model.
     """
     return self.clf
 

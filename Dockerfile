@@ -13,8 +13,8 @@ WORKDIR /app
 COPY classifier.py .
 COPY classifier-ml.py .
 COPY requirements.txt .
-COPY ./data/randomforestclassifier.pickle.xz data/randomforestclassifier.pickle.xz
-COPY ./data/randomforestclassifier.pickle.xz.sha256sum data/randomforestclassifier.pickle.xz.sha256sum
+COPY ./data/voting_classifier.pickle.xz data/voting_classifier.pickle.xz
+COPY ./data/voting_classifier.pickle.xz.sha256sum data/voting_classifier.pickle.xz.sha256sum
 
 RUN pip install --no-cache-dir -r requirements.txt && \
     chown nobody -R /app

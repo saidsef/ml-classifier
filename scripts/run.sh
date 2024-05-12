@@ -2,7 +2,7 @@
 
 set -ex
 
-export TIMEOUT=${NOTEBOOK_TIMEOUT:-1400}
+export TIMEOUT=${NOTEBOOK_TIMEOUT:-1600}
 
 function runnb() {
   pip3 install -r ./requirements.txt

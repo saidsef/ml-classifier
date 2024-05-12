@@ -80,7 +80,7 @@ And the response will look like:
 ```json
 {
   "score": 1,
-  "category": "Arts & Life"
+  "category": "Opinion"
 }
 ```
 
