@@ -15,7 +15,7 @@ metadata:
       }
 spec:
   rules:
-  - host: classifier
+  - host: classifier.saidsef.co.uk
     http:
       paths:
       - path: /
