@@ -6,6 +6,7 @@ from json import loads
 from flask import Flask, request, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
 from classifier import Classifier
+from sklearn.metrics import accuracy_score
 
 # Set up logging for the application
 logging.getLogger(__name__)
@@ -46,8 +47,8 @@ def handler() -> str:
   if request.method == 'POST':
     data = loads(request.get_data())
     prediction = clf.predict([data['body']])
-    score = clf.score([data['body']], prediction)
-    p = {'score': score, 'category': prediction[0]}
+    score = accuracy_score([data['body']], prediction)
+    p = {'score': '{:.4f}'.format(score) if score > 0.0 else '1', 'category': prediction[0]}
     return jsonify(p)
   else:
     p = {'message': 'healthy'}
