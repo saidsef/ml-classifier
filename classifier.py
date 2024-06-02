@@ -2,8 +2,10 @@
 
 import lzma
 import logging
+from typing import Union, Dict
 from pickle import load
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import VotingClassifier
 
 logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING)
@@ -33,7 +35,7 @@ class Classifier(object):
     finally:
       logging.info("Done loading file")
 
-  def model(self) -> object:
+  def model(self) -> VotingClassifier:
     """
     Provides access to the loaded VotingClassifier model.
 
@@ -42,7 +44,7 @@ class Classifier(object):
     """
     return self.clf
 
-  def train(self, data) -> object:
+  def train(self, data: Dict[str, dict]) -> Union[object, Dict[str, str]]:
     """
     Trains the classifier with the provided data.
 

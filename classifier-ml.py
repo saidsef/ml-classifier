@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import os
 import logging
+from os import environ
 from json import loads
 from flask import Flask, request, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
@@ -13,7 +13,7 @@ logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING)
 
 # Retrieve the port number from the environment variable or set to default 8080
-PORT = os.environ.get("PORT", 8080)
+PORT = environ.get("PORT", 8080)
 
 # Initialize the classifier and Flask application
 clf   = Classifier().model()
@@ -23,7 +23,7 @@ app   = Flask(__name__)
 PrometheusMetrics(app, group_by='url_rule')    # by URL rule
 
 @app.route('/', methods=['GET'])
-def index() -> str:
+def index() -> dict:
   """
   Endpoint to list all available API endpoints.
 
@@ -33,7 +33,7 @@ def index() -> str:
   return jsonify(['{} {}'.format(list(rule.methods), rule) for rule in app.url_map.iter_rules() if 'static' not in str(rule)])
 
 @app.route('/api/v1/news', methods=['GET', 'POST'])
-def handler() -> str:
+def handler() -> dict:
   """
   Endpoint to classify news text. Supports GET and POST methods.
 
@@ -55,7 +55,7 @@ def handler() -> str:
     return jsonify(p)
 
 @app.route('/api/v1/train', methods=['POST'])
-def train() -> str:
+def train() -> dict:
   """
   Endpoint to add new training data to the classifier.
 
