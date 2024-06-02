@@ -3,7 +3,7 @@
 import logging
 from os import environ
 from json import loads
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from prometheus_flask_exporter import PrometheusMetrics
 from classifier import Classifier
 from sklearn.metrics import accuracy_score
@@ -23,17 +23,17 @@ app   = Flask(__name__)
 PrometheusMetrics(app, group_by='url_rule')    # by URL rule
 
 @app.route('/', methods=['GET'])
-def index() -> dict:
+def index() -> Response:
   """
   Endpoint to list all available API endpoints.
 
   Returns:
-  str: A JSON string containing a list of available endpoints.
+  Response: A JSON response containing a list of available endpoints.
   """
   return jsonify(['{} {}'.format(list(rule.methods), rule) for rule in app.url_map.iter_rules() if 'static' not in str(rule)])
 
 @app.route('/api/v1/news', methods=['GET', 'POST'])
-def handler() -> dict:
+def handler() -> Response:
   """
   Endpoint to classify news text. Supports GET and POST methods.
 
@@ -41,7 +41,7 @@ def handler() -> dict:
   - GET: Returns a default healthy message.
 
   Returns:
-  str: A JSON string containing the classification score and category for POST requests,
+  Response: A JSON response containing the classification score and category for POST requests,
   or a healthy message for GET requests.
   """
   if request.method == 'POST':
@@ -55,14 +55,14 @@ def handler() -> dict:
     return jsonify(p)
 
 @app.route('/api/v1/train', methods=['POST'])
-def train() -> dict:
+def train() -> Response:
   """
   Endpoint to add new training data to the classifier.
 
   Takes a JSON payload with training data and updates the classifier model.
 
   Returns:
-  str: A JSON string containing a message indicating the result of the training operation.
+  Response: A JSON response containing a message indicating the result of the training operation.
   """
   if request.method == 'POST':
     data = loads(request.get_data())
