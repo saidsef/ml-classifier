@@ -10,6 +10,7 @@ numpy = "==1.26.4"
 prometheus-flask-exporter = "==0.23.0"
 scikit-learn = "==1.5.1"
 werkzeug = ">=3.0.3"
+zipp = ">=3.19.1"
 
 [dev-packages]
 
