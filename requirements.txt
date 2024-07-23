@@ -2,7 +2,7 @@
 flask==3.0.3
 flask_wtf==1.2.1
 numpy==1.26.4
-prometheus-flask-exporter==0.23.0
+prometheus-flask-exporter==0.23.1
 scikit-learn==1.5.1
 # scipy==1.11.3
 # requests==2.31.0
