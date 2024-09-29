@@ -25,7 +25,7 @@ spec:
       securityContext: {}
       containers:
       - name: classifier
-        image: docker.io/saidsef/ml-classifier:v2024.04
+        image: docker.io/saidsef/ml-classifier:v2024.09
         imagePullPolicy: Always
         ports:
         - containerPort: 7070
