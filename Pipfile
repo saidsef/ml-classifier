@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 flask = "==3.0.3"
-flask-wtf = "==1.2.1"
+flask-wtf = "==1.2.2"
 numpy = "==2.1.2"
 prometheus-flask-exporter = "==0.23.1"
 scikit-learn = "==1.5.2"
