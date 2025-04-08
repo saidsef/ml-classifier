@@ -31,7 +31,7 @@ jobs:
         id: release
         if: ${{ env.TAG }}
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
           script: |
             const { repo: { owner, repo }, sha } = context;
@@ -41,19 +41,18 @@ jobs:
               const release = await github.rest.repos.createRelease({
                 owner, repo,
                 tag_name: tag,
-                name: tag,
-                title: tag,
-                draft: false,
-                target_commitish: sha
+                generate_release_notes: true
               });
               release_id = release.data.id;
             } catch (e) {
-              let latest;
-              if (e.status == 422) { // Release alredy exists
-                latest = await github.rest.repos.getLatestRelease({
-                  owner, repo
+              if (e.status == 422) { // Release already exists
+                const latest = await github.rest.repos.getLatestRelease({
+                  owner,
+                  repo
                 });
+                release_id = latest.data.id;
+              } else {
+                throw e;
               }
-              release_id = latest.data.id;
             }
             return release_id
