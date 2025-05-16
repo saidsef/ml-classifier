@@ -41,7 +41,7 @@ My goal is to show you how to create a predictive model(s) that will classificat
 
 ## Getting started with the machine learning tutorial
 
-See [Jupyter Notebook](https://machinelearningmastery.com/start-here/)
+See HowTo [Jupyter Notebook](https://machinelearningmastery.com/start-here/)
 
 ## Deployment
 
