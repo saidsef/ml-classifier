@@ -1,4 +1,4 @@
-FROM docker.io/python:3.11-slim-buster
+FROM docker.io/python:3.12-slim-bullseye
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
