@@ -3,7 +3,7 @@ flask==3.1.2
 flask_wtf==1.2.2
 numpy==1.26.4
 prometheus-flask-exporter==0.23.2
-scikit-learn==1.7.1
+scikit-learn==1.7.2
 # scipy==1.11.3
 # requests==2.31.0
 # pandas==2.1.1
