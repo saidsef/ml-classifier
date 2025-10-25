@@ -5,8 +5,8 @@ LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 LABEL org.opencontainers.image.source="https://github.com/saidsef/ml-classifier"
 LABEL org.opencontainers.image.description="ML news classifier"
 
-ENV PORT ${PORT:-7070}
-ENV FLASK_APP "classifier-ml.py"
+ENV PORT=${PORT:-7070}
+ENV FLASK_APP=classifier-ml.py
 
 WORKDIR /app
 
