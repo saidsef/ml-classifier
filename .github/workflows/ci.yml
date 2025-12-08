@@ -70,7 +70,7 @@ jobs:
     - name: Create models
       if: ${{ env.TAG }}
       env:
-        NOTEBOOK_TIMEOUT: "1400"
+        NOTEBOOK_TIMEOUT: "1500"
       run: |
         docker run -v $PWD:/app:rw -w "/app" -u root docker.io/jupyter/datascience-notebook:2023-10-20 bash ./scripts/run.sh
     - name: Cache multiple paths
