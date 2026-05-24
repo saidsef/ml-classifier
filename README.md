@@ -17,7 +17,7 @@ My goal is to show you how to create a predictive model(s) that will classificat
 
 ## Prerequisite
 
-- Python >= v3.11
+- Python >= v3.12
 - Jupyter Notebook
 - Some knowledge of Machine Learning
 
