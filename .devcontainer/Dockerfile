@@ -1,4 +1,4 @@
-FROM docker.io/jupyter/datascience-notebook:latest
+FROM quay.io/jupyter/datascience-notebook:latest
 
 USER root
 # Generally, Dev Container Features assume that the non-root user (in this case jovyan)
