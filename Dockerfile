@@ -1,4 +1,4 @@
-FROM docker.io/python:3.12-slim-trixie
+FROM docker.io/python:3.14-slim-trixie
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
