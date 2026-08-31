@@ -12,11 +12,13 @@ WORKDIR /app
 
 COPY classifier.py .
 COPY classifier-ml.py .
-COPY requirements.txt .
+COPY Pipfile Pipfile.lock ./
 COPY ./data/voting_classifier.pickle.xz data/voting_classifier.pickle.xz
 COPY ./data/voting_classifier.pickle.xz.sha256sum data/voting_classifier.pickle.xz.sha256sum
 
-RUN pip install --no-cache-dir -r requirements.txt && \
+RUN pip install --no-cache-dir pipenv && \
+    pipenv install --system --deploy && \
+    pip uninstall --yes pipenv && \
     chown nobody -R /app
 
 USER nobody

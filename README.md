@@ -55,9 +55,10 @@ As a Python application:
 
 ```shell
 
-pip3 install -r requirements.txt
+pip3 install pipenv
+pipenv install
 
-PORT=7070 classifier-ml.py
+PORT=7070 pipenv run python classifier-ml.py
 ```
 
 ## JSON Format

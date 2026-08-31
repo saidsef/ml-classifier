@@ -15,4 +15,4 @@ zipp = ">=4.1.0"
 [dev-packages]
 
 [requires]
-python_version = "3.12"
+python_version = "3.14"
