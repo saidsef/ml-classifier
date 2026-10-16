@@ -17,7 +17,8 @@ My goal is to show you how to create a predictive model(s) that will classificat
 
 ## Prerequisite
 
-- Python >= v3.12
+- Python >= v3.13
+- [uv](https://docs.astral.sh/uv/)
 - Jupyter Notebook
 - Some knowledge of Machine Learning
 
@@ -54,11 +55,9 @@ docker run -d -p 7070:7070 docker.io/saidsef/ml-classifier:latest
 As a Python application:
 
 ```shell
+uv sync
 
-pip3 install pipenv
-pipenv install
-
-PORT=7070 pipenv run python classifier-ml.py
+PORT=7070 uv run classifier-ml.py
 ```
 
 ## JSON Format

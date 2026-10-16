@@ -14,7 +14,7 @@ updates:
       - "saidsef"
     pull-request-branch-name:
       separator: "-"
-  - package-ecosystem: "pip"
+  - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "weekly"
