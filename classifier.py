@@ -2,6 +2,7 @@
 
 import lzma
 import logging
+from pathlib import Path
 from typing import Union, Dict
 from pickle import load
 from sklearn.model_selection import train_test_split
@@ -9,6 +10,8 @@ from sklearn.ensemble import VotingClassifier
 
 logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING)
+
+MODEL = Path(__file__).parent / 'data' / 'voting_classifier.pickle.xz'
 
 
 class Classifier(object):
@@ -24,16 +27,17 @@ class Classifier(object):
 
   def __init__(self) -> None:
     """
-    Initialises the Classifier instance by attempting to load a pre-trained model from a file.
-    If the model file cannot be loaded, an error is logged.
+    Initialises the Classifier instance by loading the pre-trained model from the data directory
+    next to this file.
+
+    Raises:
+    - FileNotFoundError: If the model file is missing, naming the file and how to build it.
     """
     try:
-      with lzma.open('./data/voting_classifier.pickle.xz', 'rb') as fh:
+      with lzma.open(MODEL, 'rb') as fh:
         self.clf = load(fh)
-    except IOError:
-      logging.error("Unable to load file")
-    finally:
-      logging.info("Done loading file")
+    except FileNotFoundError as e:
+      raise FileNotFoundError(f'{MODEL} is missing, build it with classifier-ml.ipynb') from e
 
   def model(self) -> VotingClassifier:
     """
