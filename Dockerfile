@@ -21,8 +21,8 @@ LABEL author="uk.co.saidsef.ml-classifier=v3.0"
 LABEL org.opencontainers.image.source="https://github.com/saidsef/ml-classifier"
 LABEL org.opencontainers.image.description="ML news classifier"
 
-ENV PORT ${PORT:-7070}
-ENV FLASK_APP "classifier-ml.py"
+ENV PORT=7070
+ENV FLASK_APP=classifier-ml.py
 ENV PATH="/opt/venv/bin:${PATH}"
 
 WORKDIR /app
@@ -39,7 +39,7 @@ USER nobody
 
 EXPOSE ${PORT}
 
-HEALTHCHECK --interval=60s --timeout=10s CMD curl --fail http://localhost:${PORT}/ || exit 1
+HEALTHCHECK --interval=60s --timeout=10s CMD python -c "import os, urllib.request; urllib.request.urlopen('http://localhost:' + os.environ['PORT'] + '/', timeout=5)" || exit 1
 
 CMD ["classifier-ml.py"]
 ENTRYPOINT ["python"]
