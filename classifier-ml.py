@@ -12,8 +12,7 @@ from classifier import Classifier
 logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING)
 
-# Retrieve the port number from the environment variable or set to default 8080
-PORT = environ.get("PORT", 8080)
+PORT = environ.get("PORT", 7070)
 
 # Initialize the classifier and Flask application
 classifier = Classifier()
