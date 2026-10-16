@@ -6,8 +6,9 @@ on:
     paths:
       - "classifier*.py"
       - "Dockerfile"
-      - "Pipfile"
-      - "Pipfile.lock"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".python-version"
       - "test/**"
       - "data/*.json"
       - ".github/workflows/ci.yml"
@@ -17,8 +18,9 @@ on:
     paths:
       - "classifier*.py"
       - "Dockerfile"
-      - "Pipfile"
-      - "Pipfile.lock"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".python-version"
       - "test/**"
       - "data/*.json"
       - ".github/workflows/ci.yml"
