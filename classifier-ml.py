@@ -3,6 +3,7 @@
 import logging
 from os import environ
 from json import loads
+from threading import Lock
 from flask import Flask, request, jsonify, Response
 from prometheus_flask_exporter import PrometheusMetrics
 from classifier import Classifier
@@ -15,8 +16,10 @@ logging.basicConfig(level=logging.WARNING)
 PORT = environ.get("PORT", 8080)
 
 # Initialize the classifier and Flask application
-clf   = Classifier().model()
-app   = Flask(__name__)
+classifier = Classifier()
+clf        = classifier.model()
+app        = Flask(__name__)
+training   = Lock()
 
 # Set up Prometheus metrics for Flask, grouped by URL rule
 PrometheusMetrics(app, group_by='url_rule')    # by URL rule
@@ -54,21 +57,28 @@ def handler() -> Response:
     return jsonify(p)
 
 @app.route('/api/v1/train', methods=['POST'])
-def train() -> Response:
+def train() -> tuple[Response, int]:
   """
-  Endpoint to add new training data to the classifier.
+  Endpoint to retrain the classifier on new data.
 
-  Takes a JSON payload with training data and updates the classifier model.
+  Takes a JSON payload with 'body' and 'categories' keys, each mapping a document ID to its text
+  and category, and replaces the served model with one fitted on that data alone.
 
   Returns:
-  Response: A JSON response containing a message indicating the result of the training operation.
+  Response: A JSON response with the accuracy on the held-out documents, a 400 error if the data
+  cannot be fitted, or a 409 error while another training run is in progress.
   """
-  if request.method == 'POST':
-    data = loads(request.get_data())
-    return Classifier().train(data)
-  else:
-    p = {'message': 'healthy'}
-    return jsonify(p)
+  global clf
+  if not training.acquire(blocking=False):
+    return jsonify({'error': 'training already in progress'}), 409
+  try:
+    result = classifier.train(loads(request.get_data()))
+    clf = classifier.model()
+  except (KeyError, TypeError, ValueError) as e:
+    return jsonify({'error': f'{type(e).__name__}: {e}'}), 400
+  finally:
+    training.release()
+  return jsonify(result), 200
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=PORT)
