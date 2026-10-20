@@ -1,8 +1,10 @@
-# Machine Learning - News Articles classification with sklearn [![CI](https://github.com/saidsef/ml-classifier/actions/workflows/ci.yml/badge.svg)](#deployment) [![Tagging](https://github.com/saidsef/ml-classifier/actions/workflows/tagging.yml/badge.svg)](#deployment) [![Release](https://github.com/saidsef/ml-classifier/actions/workflows/release.yml/badge.svg)](#deployment)
+# Machine Learning - News Articles classification with sklearn [![CI](https://github.com/saidsef/ml-classifier/actions/workflows/ci.yml/badge.svg)](#deployment) [![Tagging](https://github.com/saidsef/ml-classifier/actions/workflows/tagging.yml/badge.svg)](#deployment) [![Release](https://github.com/saidsef/ml-classifier/actions/workflows/release.yml/badge.svg)](#deployment) [![Documentation](https://readthedocs.org/projects/ml-classifier/badge/?version=latest)](https://ml-classifier.readthedocs.io/en/latest/)
 
 Classify news articles into different categories using Machine Learning.  The dataset consists of 6000 documents and 47 categories.
 
 My goal is to show you how to create a predictive model(s) that will classification labels for news articles.
+
+Full documentation: [ml-classifier.readthedocs.io](https://ml-classifier.readthedocs.io/).
 
 ## Objective
 
@@ -52,43 +54,51 @@ As a container:
 docker run -d -p 7070:7070 docker.io/saidsef/ml-classifier:latest
 ```
 
-As a Python application:
+As a Python application, once the model is in `data/`, see [running the service](./docs/running.md#source-checkout):
 
 ```shell
 uv sync
 
-PORT=7070 uv run classifier-ml.py
+uv run classifier-ml.py
 ```
 
-## JSON Format
+On Kubernetes, see [deploying on Kubernetes](./docs/deploying.md):
 
-Payload format should be [JSON format](test/test.json)
+```shell
+kubectl apply -k ./deployment
+```
+
+## The Request
+
+The request must be a `POST` with a [JSON payload](test/test.json):
 
 ```json
 { "body": "text-goes-here" }
 ```
 
-## The Request
-
-The quest must be `POST` and `JSON` format:
-
 ```shell
 curl -XPOST http://localhost:7070/api/v1/news -H 'Content-Type: application/json' -d @test/test.json
 ```
 
-Response will be `json` format:
+The response names the category and its probability:
 
 ```json
 {
-  "score": 1,
-  "category": "Opinion"
+  "category": "World",
+  "score": 0.126
 }
 ```
 
-## Kubernetes
+## Documentation
 
-```shell
-kubectl apply -k ./deployment
-```
+Published at [ml-classifier.readthedocs.io](https://ml-classifier.readthedocs.io/), with the source in [docs/](./docs/README.md).
+
+- [Architecture](./docs/architecture.md) - how the notebook, the image and the cluster fit together
+- [Training the model](./docs/model.md) - the dataset, the pipeline, and how to run the notebook
+- [Running the service](./docs/running.md) - the container, a source checkout, and configuration
+- [API reference](./docs/api.md) - every endpoint, with payloads and responses
+- [Deploying on Kubernetes](./docs/deploying.md) - the manifests, the overlays, and what to change in each
+- [Operations](./docs/operations.md) - health checks, metrics, and what the common failures mean
+- [CI and releases](./docs/ci.md) - what CI builds and tests, the image tags, and how releases are cut
 
 
