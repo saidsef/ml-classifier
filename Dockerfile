@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:0.13.1 AS uv
+FROM ghcr.io/astral-sh/uv:0.13.5 AS uv
 
 FROM docker.io/python:3.14-slim-trixie AS build
 
