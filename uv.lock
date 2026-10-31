@@ -5,7 +5,7 @@ requires-python = ">=3.13"
 [manifest]
 constraints = [
     { name = "werkzeug", specifier = ">=3.1.9" },
-    { name = "zipp", specifier = ">=4.1.0" },
+    { name = "zipp", specifier = ">=4.1.1" },
 ]
 
 [[package]]
