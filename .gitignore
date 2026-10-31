@@ -6,3 +6,5 @@
 **/*.tar
 **/*.tar.gz
 **/*.xz
+.venv/
+site/

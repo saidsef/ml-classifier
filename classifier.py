@@ -2,13 +2,18 @@
 
 import lzma
 import logging
+from pathlib import Path
 from typing import Union, Dict
 from pickle import load
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import VotingClassifier
+from sklearn.base import clone
+from sklearn.metrics import accuracy_score
 
 logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING)
+
+MODEL = Path(__file__).parent / 'data' / 'voting_classifier.pickle.xz'
 
 
 class Classifier(object):
@@ -24,16 +29,17 @@ class Classifier(object):
 
   def __init__(self) -> None:
     """
-    Initialises the Classifier instance by attempting to load a pre-trained model from a file.
-    If the model file cannot be loaded, an error is logged.
+    Initialises the Classifier instance by loading the pre-trained model from the data directory
+    next to this file.
+
+    Raises:
+    - FileNotFoundError: If the model file is missing, naming the file and how to build it.
     """
     try:
-      with lzma.open('./data/voting_classifier.pickle.xz', 'rb') as fh:
+      with lzma.open(MODEL, 'rb') as fh:
         self.clf = load(fh)
-    except IOError:
-      logging.error("Unable to load file")
-    finally:
-      logging.info("Done loading file")
+    except FileNotFoundError as e:
+      raise FileNotFoundError(f'{MODEL} is missing, build it with classifier-ml.ipynb') from e
 
   def model(self) -> VotingClassifier:
     """
@@ -44,29 +50,27 @@ class Classifier(object):
     """
     return self.clf
 
-  def train(self, data: Dict[str, dict]) -> Union[object, Dict[str, str]]:
+  def train(self, data: Dict[str, dict]) -> Dict[str, Union[float, int]]:
     """
-    Trains the classifier with the provided data.
+    Retrains the classifier on the provided data and replaces the loaded model.
 
-    This method attempts to split the provided data into training and testing sets,
-    then fits the classifier with the training data. If an error occurs during this process, 
-    it returns a dictionary containing the error message.
+    A copy of the model is fitted on 80% of the documents and scored on the rest. The loaded
+    model is replaced only once that fit succeeds, so predictions never see a partly fitted model.
 
     Parameters:
-    - data (dict): A dictionary containing the data to train the classifier. It should have two 
-    keys: 'body' and 'categories'. 'body' should map to the features, and 'categories' should map to the labels.
+    - data (dict): A dictionary with two keys, 'body' and 'categories', each mapping a document ID
+    to the document text and to its category respectively.
 
     Returns:
-    - object: On successful training, it returns the trained classifier object. If an error occurs, 
-    it returns a dictionary with the key 'error' and the error message as its value.
+    - dict: The accuracy on the held-out documents, and the number of documents used to train and test.
 
     Raises:
-    - Exception: If an error occurs during the training process, an exception is caught and its message 
-    is returned in a dictionary.
+    - KeyError, TypeError, ValueError: If the data is malformed or too small to fit the pipeline.
     """
-    try:
-      xtrain, xtest, ytrain, ytest = train_test_split(
-        dict(data['body']), dict(data['categories']), test_size=0.2, random_state=0)
-      self.clf.fit(xtrain, ytrain)
-    except Exception as e:
-      return {'error': "{}".format(str(e))}
+    ids = list(data['body'])
+    xtrain, xtest, ytrain, ytest = train_test_split(
+      [data['body'][i] for i in ids], [data['categories'][i] for i in ids], test_size=0.2, random_state=0)
+    model = clone(self.clf).fit(xtrain, ytrain)
+    accuracy = accuracy_score(ytest, model.predict(xtest))
+    self.clf = model
+    return {'accuracy': round(float(accuracy), 4), 'train': len(xtrain), 'test': len(xtest)}
