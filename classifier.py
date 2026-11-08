@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Union, Dict
 from pickle import load
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import VotingClassifier
+from sklearn.pipeline import Pipeline
 from sklearn.base import clone
 from sklearn.metrics import accuracy_score
 
@@ -18,13 +18,13 @@ MODEL = Path(__file__).parent / 'data' / 'voting_classifier.pickle.xz'
 
 class Classifier(object):
   """
-  A classifier for categorising text data using a VotingClassifier.
+  A classifier for categorising text data using a scikit-learn Pipeline.
 
-  This class encapsulates the functionality to load a pre-trained VotingClassifier model,
-  provide access to the model, and support for re-training the model with new data.
+  This class encapsulates the functionality to load the pre-trained pipeline, provide access to
+  it, and support for re-training it with new data.
 
   Attributes:
-  clf (VotingClassifier): The loaded VotingClassifier model.
+  clf (Pipeline): The loaded pipeline of TF-IDF features and a calibrated linear SVM.
   """
 
   def __init__(self) -> None:
@@ -41,12 +41,12 @@ class Classifier(object):
     except FileNotFoundError as e:
       raise FileNotFoundError(f'{MODEL} is missing, build it with classifier-ml.ipynb') from e
 
-  def model(self) -> VotingClassifier:
+  def model(self) -> Pipeline:
     """
-    Provides access to the loaded VotingClassifier model.
+    Provides access to the loaded pipeline.
 
     Returns:
-    VotingClassifier: The loaded model.
+    Pipeline: The loaded model.
     """
     return self.clf
 

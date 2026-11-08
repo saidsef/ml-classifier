@@ -23,7 +23,7 @@ curl -X POST http://localhost:7070/api/v1/news -H 'Content-Type: application/jso
   -d @test/test.json
 ```
 
-The response holds the predicted category and its probability under soft voting, a number between
+The response holds the predicted category and its calibrated probability, a number between
 0 and 1:
 
 ```json
@@ -62,12 +62,12 @@ reports the accuracy on the held-out documents with the size of each split:
 | `409` | another training run is in progress |
 
 The new model learns from the posted documents alone and discards what the previous model
-learned. The pipeline needs enough documents for its k-means step and its feature selection.
-`test/train.json` shows the format, but its twelve documents are too few, and the request returns
-a 400.
+learned. The calibration step splits the training documents into three folds, so each category
+needs at least three documents among the 80% used for training. `test/train.json` shows the
+format, but each of its twelve documents has a category of its own, and the request returns a 400.
 
-The request holds the connection open until the fit finishes. A fit over a few hundred documents
-can outlast proxy timeouts such as the 60-second default in ingress-nginx. The fit carries on
+The request holds the connection open until the fit finishes. A fit over the 2,128 training
+documents of the bundled dataset takes under two seconds on two CPU cores. The fit carries on
 after the client disconnects, and the new model replaces the old one when it completes.
 
 The replacement stays in the memory of the process that received the request. A restart loads the

@@ -39,7 +39,7 @@ Full documentation: [ml-classifier.readthedocs.io](https://ml-classifier.readthe
 - We will perform a descriptive analysis of the data to better understand the main characteristics that they have
 - We will continue by practicing how to train different machine learning models using scikit-learn. It is one of the most popular python libraries for machine learning
 - We will also use a subset of the dataset for training purposes
-- We will iterate and evaluate the learned models by using unseen data. Later, we will compare them until we find a good models that meets our expectations, and use a `VotingClassifier` *soft* voting for unfitted estimators.
+- We will iterate and evaluate the learned models by using unseen data, compare them, and choose a calibrated linear SVM, which scored higher than a soft-voting ensemble.
 - Once we have chosen the candidate model(s), we will use it to perform predictions and to create a simple web application that consumes this predictive model
 
 ## Getting started with the machine learning tutorial

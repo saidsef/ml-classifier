@@ -28,24 +28,29 @@ category.
 
 ## Pipeline
 
-The model is a scikit-learn `Pipeline` of four steps:
+The model is a scikit-learn `Pipeline` of two steps:
 
 | Step | Estimator | Role |
 | --- | --- | --- |
-| `vect` | `TfidfVectorizer` | turns the text into TF-IDF weights over word n-grams, without English stop words |
-| `scaler` | `MaxAbsScaler` | scales each feature into the range -1 to 1 and keeps the matrix sparse |
-| `feature_union` | `SelectKBest` and `KMeans` | keeps the features with the highest ANOVA F-score and appends the distance to each k-means centre |
-| `clf` | `VotingClassifier` | averages the class probabilities of four estimators, with soft voting |
+| `vect` | `TfidfVectorizer` | turns the text into TF-IDF weights over single words, ignoring words in fewer than two articles or more than 90% of them |
+| `clf` | `CalibratedClassifierCV` around `LinearSVC` | fits a linear SVM with balanced class weights and converts its decision scores into probabilities with sigmoid calibration over three folds |
 
-The four estimators are `LogisticRegression`, `RandomForestClassifier`, `MLPClassifier` and
-`DecisionTreeClassifier`, each wrapped in a `SelfTrainingClassifier`. Soft voting gives the
-pipeline a `predict_proba` method, which the service uses for the `score` in its responses. The
-notebook cells hold the parameters of each step.
+The calibration gives the pipeline a `predict_proba` method, which the service uses for the
+`score` in its responses. The notebook cells hold the parameters of each step, and every step
+that draws random numbers has a fixed seed, so repeated runs produce the same model.
+
+## Choosing the regularisation
+
+`C` controls how closely the SVM fits the training data. The notebook runs 5-fold
+cross-validation on the training set for several values of `C` and fits the final model with the
+value that scores best. The test set plays no part in the choice, so its accuracy is an unbiased
+estimate.
 
 ## Evaluation
 
-The notebook prints the accuracy and a per-category classification report on the test set. The
-committed notebook keeps the output of its last run.
+The notebook prints the accuracy, the top-3 accuracy, the log loss and a per-category
+classification report on the test set. It then reloads the saved model and checks that its
+predictions match the fitted model. The committed notebook keeps the output of its last run.
 
 ## Output
 

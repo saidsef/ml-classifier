@@ -12,7 +12,7 @@ Kubernetes as a Deployment and a Service, with overlays for ingress-nginx and th
 | Component | Detail |
 | --- | --- |
 | Notebook | `classifier-ml.ipynb` prepares the data, trains the pipeline and writes the model |
-| Model | `data/voting_classifier.pickle.xz`, a soft-voting ensemble over TF-IDF features |
+| Model | `data/voting_classifier.pickle.xz`, a calibrated linear SVM over TF-IDF features |
 | Service | `classifier-ml.py`, a Flask application on port 7070 with Prometheus metrics |
 | Image | `docker.io/saidsef/ml-classifier`, built by CI with the model inside |
 | Manifests | Kustomize under `deployment/`, a base and two routing overlays |
