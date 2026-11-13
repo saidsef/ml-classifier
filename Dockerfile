@@ -1,6 +1,6 @@
 FROM ghcr.io/astral-sh/uv:0.13.6 AS uv
 
-FROM docker.io/python:3.14-slim-trixie AS build
+FROM docker.io/python:3.15-slim-trixie AS build
 
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
@@ -14,7 +14,7 @@ COPY pyproject.toml uv.lock .python-version ./
 
 RUN uv sync --locked --no-dev
 
-FROM docker.io/python:3.14-slim-trixie
+FROM docker.io/python:3.15-slim-trixie
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 LABEL author="uk.co.saidsef.ml-classifier=v3.0"
